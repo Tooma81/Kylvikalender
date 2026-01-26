@@ -1,103 +1,76 @@
-.activity-calendar {
+.calendar {
+  background: #fff;
+  --box-height: 100px;
+  --box-width: 60px;
+}
+
+.calendar-title {
+  color: #000 !important;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.calendar-row {
   display: flex;
-  flex-direction: column;
-}
-
-.empty-message {
-  text-align: center;
-  color: #999;
-  padding: 40px 20px;
-  font-style: italic;
-  background: #f9f9f9;
-  border-radius: 8px;
-  border: 2px dashed #e0e0e0;
-}
-
-.activities-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-height: 600px;
-  overflow-y: auto;
-}
-
-.activity-day {
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 20px;
-  background: #fafafa;
-  transition: all 0.3s ease;
-}
-
-.activity-day:hover {
-  border-color: #667eea;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
-}
-
-.activity-date-header {
-  display: flex;
-  justify-content: space-between;
+  align-items: row;
+  justify-content: space-evenly;
   align-items: center;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e0e0e0;
+  padding: 10px;
 }
 
-.activity-date-header h3 {
-  color: #333;
-  font-size: 1.2rem;
-  margin: 0;
+.plant-name {
+  color: #000 !important;
+  font-size: 2rem;
+  font-weight: 500;
+  width: 30%
 }
 
-.days-until {
-  background: #667eea;
-  color: white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.activities-for-day {
+.month-container {
+  height: var(--box-height);
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  border-radius: 8px;
 }
 
-.activity-item {
-  display: flex;
-  gap: 15px;
-  align-items: flex-start;
-  padding: 12px;
-  background: white;
-  border-radius: 6px;
-  border-left: 4px solid #667eea;
+.month-box {
+  height: var(--box-height);
+  width: var(--box-width);
+  border: #EDAC66 solid 1px;
 }
 
-.activity-type-badge {
-  background: #667eea;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  white-space: nowrap;
-  flex-shrink: 0;
+/* Kalendri tausta värvid */
+.winter {background-color: rgba(144, 212, 246, 0.1)}
+.spring {background-color: rgba(192, 213, 193, 0.2)}
+.summer {background-color: rgba(254, 239, 222, 0.2)}
+.autumn {background-color: rgba(237, 172, 102, 0.15)}
+
+/* Ümarad servad esimesele ja viimasele kastile */
+.month-box:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.month-box:nth-child(12) {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
-.activity-content {
-  flex: 1;
+/* Kasvuperioodide markerid */
+.period-marker {
+  position: absolute;
+  color: #000;
+  font-size: calc(var(--box-height) * 0.20);
+  line-height: calc(var(--box-height) * 0.3);
+  width: calc(var(--box-width) * (var(--end) - var(--start) + 1)); /* Markeri laius arvutatakse vastavalt perioodi pikkusele */
+  height: calc(var(--box-height) / 3);
+  margin-left: calc((var(--start) - 1) * var(--box-width)); /* Markeri algus vastavalt kuule */
+  padding: 0 5px;
+  background-color: #C0D5C1;
+  border-radius: 14px;
+  z-index: 999;
 }
 
-.activity-crop {
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 4px;
-  font-size: 1rem;
-}
-
-.activity-description {
-  color: #666;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
+/* Markerite värvid ja positsoonid */
+.ettekasvatus {background-color: #C0D5C1;}
+.otsekulv {background-color: #90D4F6; margin-top: calc(var(--box-height) / 3);}
+.kasvuhoonesse {background-color: #64328A; margin-top: calc(var(--box-height) / 3 * 2); color: #fff;}
+.oue {background-color: #EDAC66; margin-top: calc(var(--box-height) / 3 * 2);}

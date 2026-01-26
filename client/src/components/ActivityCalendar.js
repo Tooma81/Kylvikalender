@@ -1,68 +1,73 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ActivityCalendar.css';
+import { getCrops, getMonths } from '../services/api';
 
-function ActivityCalendar({ activities, selectedLocation }) {
-  const groupedActivities = useMemo(() => {
-    const grouped = {};
-    activities.forEach(activity => {
-      const date = activity.date;
-      if (!grouped[date]) {
-        grouped[date] = [];
-      }
-      grouped[date].push(activity);
-    });
-    return grouped;
-  }, [activities]);
+function ActivityCalendar() {
+  const [crops, setCrops] = useState([]);
+  const [months, setMonths] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const sortedDates = Object.keys(groupedActivities).sort();
+  useEffect(() => {
+    loadData();
+  }, []);
 
-  if (sortedDates.length === 0) {
-    return (
-      <div className="activity-calendar">
-        <h2>Lähimad tegevused (14 päeva)</h2>
-        <p className="empty-message">
-          Lähima 14 päeva jooksul ei ole planeeritud ühtegi tegevust.
-        </p>
-      </div>
-    );
-  }
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const options = { day: 'numeric', month: 'long', weekday: 'long' };
-    return date.toLocaleDateString('et-EE', options);
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const [cropsData, monthsData] = await Promise.all([
+      getCrops(),
+      getMonths()
+    ]);
+      setCrops(cropsData);
+      setMonths(monthsData);
+      setError(null);
+    } catch (err) {
+      setError('Andmete laadimisel tekkis viga: ' + err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const getDaysUntilText = (days) => {
-    if (days === 0) return 'Täna';
-    if (days === 1) return 'Homme';
-    return `${days} päeva`;
-  };
+  console.log(crops)
+  console.log(months)
 
   return (
     <div className="activity-calendar">
-      <h2>Lähimad tegevused (14 päeva)</h2>
-      <div className="activities-list">
-        {sortedDates.map(date => (
-          <div key={date} className="activity-day">
-            <div className="activity-date-header">
-              <h3>{formatDate(date)}</h3>
-              <span className="days-until">
-                {getDaysUntilText(groupedActivities[date][0].daysUntil)}
-              </span>
-            </div>
-            <div className="activities-for-day">
-              {groupedActivities[date].map((activity, index) => (
-                <div key={index} className="activity-item">
-                  <div className="activity-type-badge">{activity.type}</div>
-                  <div className="activity-content">
-                    <div className="activity-crop">{activity.cropName}</div>
-                    <div className="activity-description">{activity.description}</div>
-                  </div>
+      <h1 className="calendar-title">Külvikalender</h1>
+      <div className='calendar-search'></div>
+      <div className='month-filter'>
+      </div>
+      <div className='calendar'>
+        {crops.map((crop) => (
+          <div className='calendar-row' key={crop.id}>
+          <div className='plant-name'>{crop.name}</div>
+            <div className='month-container'>
+              {months.map((month) => (
+                <div 
+                  key={month.id} 
+                  className={`month-box ${month.season}`}
+                  title={month.name} // Näitab kuu nime peale liikudes
+                >
+                  {/* Soovi korral võid siia sisse panna ka teksti: {month.id} */}
                 </div>
               ))}
+              {crop.periods
+                .filter((period) => period.start >= 1)
+                .map((period) =>
+                  <div
+                    key={period.id}
+                    className={`period-marker ${period.id}`}
+                    style={{
+                      '--start': period.start,
+                      '--end': period.end
+                    }}
+                  >
+                    {period.symbol}
+                  </div>
+              )}
             </div>
-          </div>
+        </div>
         ))}
       </div>
     </div>

@@ -1,163 +1,244 @@
+// Perioodide tüüpide definitsioonid ühes kohas
+const PERIOD_TYPES = {
+  ettekasvatus: { name: 'Ettekasvatus', symbol: 'E' },
+  otsekulv: { name: 'Otsekülv avamaale', symbol: 'O' },
+  kasvuhoonesse: { name: 'Istutamine kasvuhoonesse', symbol: 'KH' },
+  oue: { name: 'Istutamine õue', symbol: 'Õ' }
+};
+
 // Kultuuride andmebaas
 const crops = [
   {
-    id: 'tomat',
-    name: 'Tomat',
-    plantingMethod: 'Istutamine',
-    description: 'Tomatid on soojalembed kultuurid, mis vajavad palju päikest.',
-    periods: {
-      'avamaa': {
-        start: { month: 5, day: 15 },
-        end: { month: 6, day: 10 },
-        activities: [
-          { type: 'Külv kasvuhoones', month: 3, day: 1, description: 'Alusta seemnete külvamist kasvuhoones' },
-          { type: 'Istutamine välja', month: 5, day: 15, description: 'Istuta taimed välja pärast viimaseid külmakünkaid' },
-          { type: 'Hooldus', month: 6, day: 1, description: 'Kinnita taimed tugipostide külge' },
-          { type: 'Hooldus', month: 7, day: 1, description: 'Korista külgmised võrsed' },
-          { type: 'Koristus', month: 8, day: 1, description: 'Alusta viljade koristamist' }
-        ]
-      },
-      'kasvuhoone': {
-        start: { month: 2, day: 15 },
-        end: { month: 3, day: 15 },
-        activities: [
-          { type: 'Külv', month: 2, day: 15, description: 'Külva seemned kasvuhoones' },
-          { type: 'Istutamine', month: 3, day: 15, description: 'Istuta taimed põllule' },
-          { type: 'Hooldus', month: 4, day: 1, description: 'Kinnita taimed tugipostide külge' },
-          { type: 'Koristus', month: 6, day: 1, description: 'Alusta viljade koristamist' }
-        ]
-      }
-    }
+    id: 'tsilli',
+    name: 'Tšilli',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 2, end: 3 },
+      { id: 'otsekulv', start: 0, end: 0 },
+      { id: 'kasvuhoonesse', start: 5, end: 5 },
+      { id: 'oue', start: 6, end: 6 },
+    ]
   },
   {
-    id: 'kurk',
-    name: 'Kurk',
-    plantingMethod: 'Külv või istutamine',
-    description: 'Kurgid kasvavad kiiresti ja vajavad palju vett.',
-    periods: {
-      'avamaa': {
-        start: { month: 5, day: 20 },
-        end: { month: 6, day: 15 },
-        activities: [
-          { type: 'Külv kasvuhoones', month: 4, day: 1, description: 'Alusta seemnete külvamist kasvuhoones' },
-          { type: 'Istutamine välja', month: 5, day: 20, description: 'Istuta taimed välja' },
-          { type: 'Hooldus', month: 6, day: 1, description: 'Kontrolli veevarustust ja väetist' },
-          { type: 'Koristus', month: 7, day: 15, description: 'Alusta kurgide koristamist' }
-        ]
-      },
-      'kasvuhoone': {
-        start: { month: 3, day: 1 },
-        end: { month: 4, day: 15 },
-        activities: [
-          { type: 'Külv', month: 3, day: 1, description: 'Külva seemned kasvuhoones' },
-          { type: 'Hooldus', month: 4, day: 1, description: 'Kontrolli veevarustust' },
-          { type: 'Koristus', month: 5, day: 15, description: 'Alusta kurgide koristamist' }
-        ]
-      }
-    }
+    id: 'paprika',
+    name: 'Paprika',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 2, end: 2 },
+      { id: 'otsekulv', start: 0, end: 0 },
+      { id: 'kasvuhoonesse', start: 5, end: 5 },
+      { id: 'oue', start: 0, end: 0 }
+    ]
+  },
+  {
+    id: 'tomat',
+    name: 'Tomat',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 2, end: 3 },
+      { id: 'otsekulv', start: 0, end: 0 },
+      { id: 'kasvuhoonesse', start: 5, end: 5 },
+      { id: 'oue', start: 6, end: 6 }
+    ]
+  },
+  {
+    id: 'baklazaan',
+    name: 'Baklažaan',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 2, end: 2 },
+      { id: 'otsekulv', start: 0, end: 0 },
+      { id: 'kasvuhoonesse', start: 5, end: 5 },
+      { id: 'oue', start: 0, end: 0 }
+    ]
+  },
+  {
+    id: 'peakapsas',
+    name: 'Peakapsas',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 3, end: 4 },
+      { id: 'otsekulv', start: 5, end: 6 },
+      { id: 'kasvuhoonesse', start: 4, end: 4 },
+      { id: 'oue', start: 5, end: 5 }
+    ]
+  },
+  {
+    id: 'lillkapsas',
+    name: 'Lillkapsas',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 3, end: 4 },
+      { id: 'otsekulv', start: 5, end: 6 },
+      { id: 'kasvuhoonesse', start: 4, end: 4 },
+      { id: 'oue', start: 5, end: 5 }
+    ]
+  },
+  {
+    id: 'sibul',
+    name: 'Sibul (Tippsubul)',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 0, end: 0 },
+      { id: 'otsekulv', start: 4, end: 5 },
+      { id: 'kasvuhoonesse', start: 0, end: 0 },
+      { id: 'oue', start: 0, end: 0 }
+    ]
   },
   {
     id: 'porgand',
     name: 'Porgand',
-    plantingMethod: 'Külv',
-    description: 'Porgandid on külmakindlad juurviljad, mida saab külvata varakult kevadel.',
-    periods: {
-      'avamaa': {
-        start: { month: 4, day: 15 },
-        end: { month: 6, day: 1 },
-        activities: [
-          { type: 'Külv', month: 4, day: 15, description: 'Külva porgandid välja' },
-          { type: 'Hooldus', month: 5, day: 15, description: 'Haruta porgandeid' },
-          { type: 'Hooldus', month: 6, day: 1, description: 'Jätka harutamist' },
-          { type: 'Koristus', month: 8, day: 1, description: 'Alusta porgandite koristamist' }
-        ]
-      },
-      'kasvuhoone': {
-        start: { month: 2, day: 1 },
-        end: { month: 3, day: 15 },
-        activities: [
-          { type: 'Külv', month: 2, day: 1, description: 'Külva porgandid kasvuhoones' },
-          { type: 'Hooldus', month: 3, day: 1, description: 'Haruta porgandeid' },
-          { type: 'Koristus', month: 5, day: 1, description: 'Alusta porgandite koristamist' }
-        ]
-      }
-    }
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 0, end: 0 },
+      { id: 'otsekulv', start: 4, end: 5 },
+      { id: 'kasvuhoonesse', start: 0, end: 0 },
+      { id: 'oue', start: 0, end: 0 }
+    ]
   },
   {
-    id: 'sibul',
-    name: 'Sibul',
-    plantingMethod: 'Istutamine',
-    description: 'Sibulad on külmakindlad ja saavad istutada varakult kevadel.',
-    periods: {
-      'avamaa': {
-        start: { month: 4, day: 1 },
-        end: { month: 5, day: 1 },
-        activities: [
-          { type: 'Istutamine', month: 4, day: 1, description: 'Istuta sibulad välja' },
-          { type: 'Hooldus', month: 5, day: 15, description: 'Kontrolli kasvu' },
-          { type: 'Koristus', month: 8, day: 15, description: 'Korista sibulad, kui lehed kollaseks lähevad' }
-        ]
-      },
-      'kasvuhoone': {
-        start: { month: 3, day: 1 },
-        end: { month: 3, day: 31 },
-        activities: [
-          { type: 'Istutamine', month: 3, day: 1, description: 'Istuta sibulad kasvuhoones' },
-          { type: 'Koristus', month: 6, day: 15, description: 'Korista sibulad' }
-        ]
-      }
-    }
+    id: 'hernes',
+    name: 'Hernes',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 0, end: 0 },
+      { id: 'otsekulv', start: 4, end: 5 },
+      { id: 'kasvuhoonesse', start: 0, end: 0 },
+      { id: 'oue', start: 0, end: 0 }
+    ]
   },
   {
-    id: 'kartul',
-    name: 'Kartul',
-    plantingMethod: 'Istutamine',
-    description: 'Kartulid on Eesti põhivili, mida istutatakse kevadel.',
-    periods: {
-      'avamaa': {
-        start: { month: 4, day: 20 },
-        end: { month: 5, day: 15 },
-        activities: [
-          { type: 'Ettevalmistus', month: 3, day: 15, description: 'Valmista kartulid ette (idutamine)' },
-          { type: 'Istutamine', month: 4, day: 20, description: 'Istuta kartulid välja' },
-          { type: 'Hooldus', month: 6, day: 1, description: 'Künni kartulid esimest korda' },
-          { type: 'Hooldus', month: 6, day: 20, description: 'Künni kartulid teist korda' },
-          { type: 'Koristus', month: 8, day: 15, description: 'Alusta kartulite koristamist' }
-        ]
-      }
-    }
+    id: 'aeduba',
+    name: 'Aeduba',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 0, end: 0 },
+      { id: 'otsekulv', start: 5, end: 6 },
+      { id: 'kasvuhoonesse', start: 0, end: 0 },
+      { id: 'oue', start: 0, end: 0 }
+    ]
   },
   {
-    id: 'salat',
-    name: 'Salat',
-    plantingMethod: 'Külv',
-    description: 'Salatid on kiiresti kasvavad lehtköögiviljad.',
-    periods: {
-      'avamaa': {
-        start: { month: 4, day: 15 },
-        end: { month: 7, day: 1 },
-        activities: [
-          { type: 'Külv', month: 4, day: 15, description: 'Külva esimene salat' },
-          { type: 'Külv', month: 5, day: 15, description: 'Külva teine salat' },
-          { type: 'Külv', month: 6, day: 15, description: 'Külva kolmas salat' },
-          { type: 'Koristus', month: 5, day: 30, description: 'Alusta salatite koristamist' }
-        ]
-      },
-      'kasvuhoone': {
-        start: { month: 2, day: 1 },
-        end: { month: 4, day: 1 },
-        activities: [
-          { type: 'Külv', month: 2, day: 1, description: 'Külva salat kasvuhoones' },
-          { type: 'Koristus', month: 3, day: 20, description: 'Alusta salatite koristamist' }
-        ]
-      }
-    }
-  }
+    id: 'redis',
+    name: 'Redis',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 0, end: 0 },
+      { id: 'otsekulv', start: 4, end: 9 },
+      { id: 'kasvuhoonesse', start: 0, end: 0 },
+      { id: 'oue', start: 0, end: 0 }
+    ]
+  },
+  {
+    id: 'salat-spinat',
+    name: 'Salat/Spinat',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 3, end: 3 },
+      { id: 'otsekulv', start: 4, end: 8 },
+      { id: 'kasvuhoonesse', start: 3, end: 3 },
+      { id: 'oue', start: 4, end: 4 }
+    ]
+  },
+  {
+    id: 'peet',
+    name: 'Peet',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 5, end: 5 },
+      { id: 'otsekulv', start: 5, end: 5 },
+      { id: 'kasvuhoonesse', start: 0, end: 0 },
+      { id: 'oue', start: 5, end: 6}
+    ]
+  },
+  {
+    id: 'kurk',
+    name: 'Kurk',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 4, end: 4 },
+      { id: 'otsekulv', start: 5, end: 5 },
+      { id: 'kasvuhoonesse', start: 5, end: 5 },
+      { id: 'oue', start: 6, end: 6}
+    ]
+  },
+  {
+    id: 'korvits',
+    name: 'Kõrvits',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 4, end: 4 },
+      { id: 'otsekulv', start: 5, end: 6 },
+      { id: 'kasvuhoonesse', start: 5, end: 5 },
+      { id: 'oue', start: 6, end: 6}
+    ]
+  },
+  {
+    id: 'suvikorvits',
+    name: 'Suvikõrvits',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 4, end: 4 },
+      { id: 'otsekulv', start: 5, end: 6 },
+      { id: 'kasvuhoonesse', start: 5, end: 5 },
+      { id: 'oue', start: 6, end: 6}
+    ]
+  },
+  {
+    id: 'melon',
+    name: 'Melon',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 3, end: 4 },
+      { id: 'otsekulv', start: 0, end: 0 },
+      { id: 'kasvuhoonesse', start: 5, end: 5 },
+      { id: 'oue', start: 0, end: 0}
+    ]
+  },
+  {
+    id: 'kuuslauk',
+    name: 'Küüslauk',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      { id: 'ettekasvatus', start: 0, end: 0 },
+      { id: 'otsekulv', start: 10, end: 10 },
+      { id: 'kasvuhoonesse', start: 0, end: 0 },
+      { id: 'oue', start: 0, end: 0}
+    ]
+  },
+]; 
+
+const months = [
+  { id: 1, name: 'JAAN', season: 'winter' },
+  { id: 2, name: 'VEEB', season: 'winter' },
+  { id: 3, name: 'MÄRTS', season: 'spring' },
+  { id: 4, name: 'APRIL', season: 'spring' },
+  { id: 5, name: 'MAI', season: 'spring' },
+  { id: 6, name: 'JUUNI', season: 'summer' },
+  { id: 7, name: 'JUULI', season: 'summer' },
+  { id: 8, name: 'AUG', season: 'summer' },
+  { id: 9, name: 'SEPT', season: 'autumn' },
+  { id: 10, name: 'OKT', season: 'autumn' },
+  { id: 11, name: 'NOV', season: 'autumn' },
+  { id: 12, name: 'DETS', season: 'winter' }
 ];
 
 // Get all crops
 function getCrops() {
-  return crops;
+  return crops.map(crop => ({
+    ...crop,
+    periods: crop.periods
+      .filter(p => p.start > 0) // Filtreerime tühjad kohe välja
+      .map(p => ({
+        ...p,
+        ...PERIOD_TYPES[p.id] // See lisab 'name' ja 'symbol' otse perioodi külge
+      }))
+  }));
+}
+
+// Get all months
+function getMonths() {
+  return months;
 }
 
 // Get crop by ID
@@ -165,55 +246,10 @@ function getCropById(id) {
   return crops.find(crop => crop.id === id);
 }
 
-// Get user activities based on selected crops and location
-function getUserActivities(userCrops, location, days = 14) {
-  const today = new Date();
-  const endDate = new Date(today);
-  endDate.setDate(today.getDate() + days);
-  
-  const activities = [];
-  
-  userCrops.forEach(userCrop => {
-    const crop = getCropById(userCrop.cropId);
-    if (!crop || !crop.periods[location]) {
-      return;
-    }
-    
-    const period = crop.periods[location];
-    const year = today.getFullYear();
-    
-    period.activities.forEach(activity => {
-      // Create date for this year
-      let activityDate = new Date(year, activity.month - 1, activity.day);
-      
-      // If activity date has passed this year, check next year
-      if (activityDate < today) {
-        activityDate = new Date(year + 1, activity.month - 1, activity.day);
-      }
-      
-      // Check if activity is within the date range
-      if (activityDate >= today && activityDate <= endDate) {
-        activities.push({
-          date: activityDate.toISOString().split('T')[0],
-          cropId: crop.id,
-          cropName: crop.name,
-          location: location,
-          type: activity.type,
-          description: activity.description,
-          daysUntil: Math.ceil((activityDate - today) / (1000 * 60 * 60 * 24))
-        });
-      }
-    });
-  });
-  
-  // Sort by date
-  activities.sort((a, b) => new Date(a.date) - new Date(b.date));
-  
-  return activities;
-}
+
 
 module.exports = {
   getCrops,
   getCropById,
-  getUserActivities
+  getMonths,
 };
