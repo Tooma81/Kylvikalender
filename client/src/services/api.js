@@ -58,3 +58,9 @@ export const healthCheck = async () => {
   const response = await api.get('/health');
   return response.data;
 };
+
+// Get Gardest items
+export const getRecommendedProducts = async () => {
+  const response = await api.get('/products'); // Eeldame, et backendis on see route olemas
+  return response.data;
+};
