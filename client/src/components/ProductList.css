@@ -27,12 +27,16 @@
   gap: 20px;
   overflow-x: auto; /* Võimaldab horisontaalset kerimist */
   padding-bottom: 15px;
-  scrollbar-width: thin; /* Firefoxi jaoks */
+  scrollbar-width: none; /* peidab scrollbar Firefoxis */
+  scroll-behavior: smooth;
+  padding: 10px 5px;
+  scroll-snap-type: x mandatory; /* Paneb tooted "paika hüppama" */
 }
 
 /* Peidame scrollbari Chrome/Safari jaoks, et oleks ilusam */
 .product-grid::-webkit-scrollbar {
   height: 6px;
+  display: none;
 }
 .product-grid::-webkit-scrollbar-thumb {
   background: #ccc;
@@ -40,17 +44,18 @@
 }
 
 .product-card {
-  min-width: 180px; /* Kaardi laius */
+  min-width: 200px; /* Kaardi laius */
   text-decoration: none;
   color: inherit;
   transition: transform 0.2s;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  background: white;
 }
 
 .product-card:hover {
   transform: translateY(-5px);
 }
-
-/* Täiendus ProductList.css faili */
 
 .image-container {
   background-color: #ffffff; /* Puhas valge taust */
@@ -95,3 +100,30 @@
   color: #6b4fbb;
   margin-top: 2px;
 }
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-size: 24px;
+}
+
+.nav-btn.left { left: -20px; }
+.nav-btn.right { right: -20px; }
+
+.nav-btn:hover { background: #f8f8f8; }

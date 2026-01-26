@@ -5,7 +5,6 @@ const { getCrops, getCropById, getUserActivities } = require('./data/crops');
 const { validateUserSelection, validateDateRange } = require('./utils/validation');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -16,6 +15,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 let userSelections = {};
 
 // API Routes
+
+//scraper endpoint to manually trigger scraping
+const scrapeGardest = require('./scraper');
+app.get('/api/scrape', async (req, res) => {
+  try {
+    await scrapeGardest();
+    res.json({ message: "Kraapimine edukas!" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // Get all available crops
 app.get('/api/crops', (req, res) => {
@@ -154,6 +164,9 @@ app.get('/api/user/crops', (req, res) => {
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server töötab' });
 });
+// server/index.js lõpp
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server töötab pordil ${PORT}`);
