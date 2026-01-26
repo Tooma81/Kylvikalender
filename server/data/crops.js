@@ -1,6 +1,76 @@
 // Kultuuride andmebaas
 const crops = [
   {
+    id: 'tsilli',
+    name: 'Tšilli',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      {
+        id: 'ettekasvatus',
+        name: 'Ettekasvatus',
+        symbol: 'E',
+        start: 2,
+        end: 3
+      },
+      {
+        id: 'otsekulv',
+        name: 'Otsekülv avamaale',
+        symbol: 'O',
+        start: 0,
+        end: 0
+      },
+      {
+        id: 'kasvuhoonesse',
+        name: 'Istutamine kasvuhoonesse',
+        symbol: 'KH',
+        start: 5,
+        end: 5
+      },
+      {
+        id: 'oue',
+        name: 'Istutamine õue',
+        symbol: 'Õ',
+        start: 6,
+        end: 6
+      },
+    ]
+  },
+  {
+    id: 'paprika',
+    name: 'Paprika',
+    description: 'Taimede kasvatamisel on oluline arvestada iga liigi vajadustega, eriti valguse, vee ja toitainete osas. Enamik taimi eelistab valget ja sobiva temperatuuriga kasvukohta. Muld peaks olema õhuline ja toitaineterikas, et juured saaksid hästi areneda. Kastmisel tuleb hoida tasakaalu, sest nii liigne kuivus kui ka ülekastmine võivad taimi kahjustada. Regulaarne väetamine aitab tagada tugeva kasvu ja parema saagi. Samuti on oluline taimi aeg-ajalt kontrollida, et märgata varakult kahjureid või haigusi. Hoolikas ja järjepidev tähelepanu loob head eeldused taimede tervislikuks kasvuks.',
+    periods: [
+      {
+        id: 'ettekasvatus',
+        name: 'Ettekasvatus',
+        symbol: 'E',
+        start: 2,
+        end: 2
+      },
+      {
+        id: 'otsekulv',
+        name: 'Otsekülv avamaale',
+        symbol: 'O',
+        start: 0,
+        end: 0
+      },
+      {
+        id: 'kasvuhoonesse',
+        name: 'Istutamine kasvuhoonesse',
+        symbol: 'KH',
+        start: 5,
+        end: 5
+      },
+      {
+        id: 'oue',
+        name: 'Istutamine õue',
+        symbol: 'Õ',
+        start: 0,
+        end: 0
+      },
+    ]
+  },
+  {
     id: 'tomat',
     name: 'Tomat',
     plantingMethod: 'Istutamine',
