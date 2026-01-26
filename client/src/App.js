@@ -1,20 +1,15 @@
-<<<<<<< Updated upstream
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import ActivityCalendar from './components/ActivityCalendar';
 import ProductList from './components/ProductList';
-=======
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import FilterableCalendar from './components/FilterableCalendar';
->>>>>>> Stashed changes
 
-function App() {
+function MainContent() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-<<<<<<< Updated upstream
     <div className="app">
       <header className="app-header">
         <h1>Külvikalender</h1>
@@ -28,7 +23,9 @@ function App() {
           <div className="card-general-content">
             <h2>Üldine</h2>
             <p className="card-subtitle">Kogu informatsioon ühes kohas!</p>
-            <button className="card-button">Vaata kogu külvikalendrit</button>
+            <button className="card-button" onClick={() => window.location.href='/kalender'}>
+              Vaata kogu külvikalendrit
+            </button>
           </div>
         </div>
 
@@ -51,20 +48,16 @@ function App() {
             <b>Külvikalender on juhend või ajakava</b>, mis aitab planeerida aiatöid
             kogu kasvuperioodi jooksul. See näitab, millal on kõige sobivam aeg erinevaid
             taimi külvata, ette kasvatada, istutada, ümber istutada ja saaki koristada. 
-            Külvikalender arvestab taimede kasvuvajadusi ning kohalikke ilmastiku- ja kliimatingimusi, 
-            et taimed saaksid kasvada võimalikult soodsates oludes.
+          </p>
+          
+          <div className={`expandable-content ${isExpanded ? 'expanded' : ''}`}>
+            <p>
+              <br />
+              Külvikalendri <b>põhieesmärk on aidata aednikul valida õige aeg külviks</b>, 
+              sest liiga vara külvatud taimed võivad kannatada külma käes ja liiga hilja 
+              külvatud taimed ei pruugi jõuda enne sügist saaki anda.
             </p>
-            {}
-            <div className={`expandable-content ${isExpanded ? 'expanded' : ''}`}>
-              <p>
-                <br />
-                Külvikalendri <b>põhieesmärk on aidata aednikul valida õige aeg külviks</b>, 
-                sest liiga vara külvatud taimed võivad kannatada külma käes ja liiga hilja 
-                külvatud taimed ei pruugi jõuda enne sügist saaki anda. Paljudes külvikalendrites 
-                on eraldi välja toodud, millal külvata seemned toas ette, millal istutada taimed kasvuhoonesse 
-                ning millal külvata või istutada otse avamaale.
-                </p>
-                </div>
+          </div>
           
           <button 
             className="read-more-btn" 
@@ -75,7 +68,6 @@ function App() {
         </div>
       </div>
 
-      {/* Tootenimekiri valgel taustal */}
       <div className="content-section product-list-wrapper">
         <ProductList />
       </div>
@@ -84,14 +76,17 @@ function App() {
         <ActivityCalendar />
       </div>
     </div>
-=======
+  );
+}
+
+function App() {
+  return (
     <Router>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<MainContent />} />
         <Route path="/kalender" element={<FilterableCalendar />} />
       </Routes>
     </Router>
->>>>>>> Stashed changes
   );
 }
 
