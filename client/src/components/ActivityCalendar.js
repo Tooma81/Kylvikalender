@@ -5,6 +5,7 @@ import { getCrops, getMonths } from '../services/api';
 function ActivityCalendar() {
   const [crops, setCrops] = useState([]);
   const [months, setMonths] = useState([]);
+  const [monthFilter, setMonthFilter] = useState(0)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -29,8 +30,15 @@ function ActivityCalendar() {
     }
   };
 
-  console.log(crops)
-  console.log(months)
+  const handleFilterChange = async (id) => {
+    try {
+      monthFilter === id ? setMonthFilter(0) : setMonthFilter(id);
+    } catch (err) {
+      setError('Andmete laadimisel tekkis viga: ' + err.message);
+    } finally {
+      loadData();
+    }
+  };
 
   return (
     <div className="activity-calendar">
@@ -40,13 +48,23 @@ function ActivityCalendar() {
         <div className='month-filter'>
           {months.map((month) => (
             <div
-              className={`month-filter-btn ${month.season}`}
+              key={month.id}
+              className={`month-filter-btn prevent-select ${month.season} ${monthFilter === month.id ? 'selected' : ''}`}
+              onClick={() => handleFilterChange(month.id)}
             >
               {month.name}
             </div>
           ))}
         </div>
-        {crops.map((crop) => (
+        {crops
+        .filter((crop) => {
+          // Kui väärtus 0, siis filter puudub
+          if (!monthFilter || monthFilter === 0) return true;
+          return crop.periods.some((period) => 
+            monthFilter >= period.start && monthFilter <= period.end
+          );
+        })
+        .map((crop) => (
           <div className='calendar-row' key={crop.id}>
           <div className='plant-name'>{crop.name}</div>
             <div className='month-container'>

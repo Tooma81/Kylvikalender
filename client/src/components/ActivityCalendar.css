@@ -59,6 +59,16 @@
   height: 48px;
   margin: 0 5px;
   transition: 0.3s;
+  cursor: pointer;
+}
+
+.month-filter-btn:hover {
+  font-size: 21px;
+}
+
+.month-filter-btn.selected {
+  border: #000 solid 1px;
+  font-size: 21px;
 }
 
 /* Nuppude tausta värvid */
@@ -67,10 +77,16 @@
 .month-filter-btn.summer {background-color: #FEEFDE}
 .month-filter-btn.autumn {background-color: #EDAC66}
 
-.month-filter-btn.winter:hover {background-color: #BDE9FF}
-.month-filter-btn.spring:hover {background-color: #DAE9DB}
-.month-filter-btn.summer:hover {background-color: #FFF8F0}
-.month-filter-btn.autumn:hover {background-color: #FFD19F}
+.month-filter-btn.winter:hover, .month-filter-btn.winter.selected {background-color: #BDE9FF}
+.month-filter-btn.spring:hover, .month-filter-btn.spring.selected {background-color: #DAE9DB}
+.month-filter-btn.summer:hover, .month-filter-btn.summer.selected {background-color: #FFF8F0}
+.month-filter-btn.autumn:hover, .month-filter-btn.autumn.selected {background-color: #FFD19F}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
 
 /* Kalendri tausta värvid */
 .winter {background-color: rgba(144, 212, 246, 0.1)}
