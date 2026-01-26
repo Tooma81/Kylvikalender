@@ -7,25 +7,30 @@
 
 .app-header {
   text-align: center;
-  color: white;
+  color: var(--color-primary-purple);
   margin-bottom: 30px;
   padding: 20px;
 }
 
 .app-header h1 {
+  font-family: var(--font-primary);
   font-size: 3rem;
+  font-weight: 400;
   margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--color-primary-purple);
 }
 
 .subtitle {
+  font-family: var(--font-primary);
   font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--color-primary-purple);
   opacity: 0.9;
 }
 
 .error-message {
   background-color: #ff4444;
-  color: white;
+  color: var(--color-light-cream);
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -33,12 +38,13 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-primary);
 }
 
 .error-message button {
   background: none;
   border: none;
-  color: white;
+  color: var(--color-light-cream);
   font-size: 24px;
   cursor: pointer;
   padding: 0 10px;
@@ -46,9 +52,10 @@
 
 .loading {
   text-align: center;
-  color: white;
+  color: var(--color-primary-purple);
   font-size: 1.5rem;
   padding: 50px;
+  font-family: var(--font-primary);
 }
 
 .app-main {
@@ -58,15 +65,18 @@
 }
 
 .location-selector {
-  background: white;
+  background: var(--color-light-cream);
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(94, 53, 137, 0.15);
+  border: 1px solid var(--color-light-grey);
 }
 
 .location-selector h2 {
+  font-family: var(--font-primary);
+  font-weight: 500;
   margin-bottom: 15px;
-  color: #333;
+  color: var(--color-primary-purple);
 }
 
 .location-buttons {
@@ -75,25 +85,27 @@
 }
 
 .location-buttons button {
+  font-family: var(--font-primary);
   flex: 1;
   padding: 12px 24px;
   font-size: 1rem;
-  border: 2px solid #667eea;
-  background: white;
-  color: #667eea;
+  font-weight: 400;
+  border: 2px solid var(--color-primary-purple);
+  background: var(--color-light-cream);
+  color: var(--color-primary-purple);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-weight: 600;
 }
 
 .location-buttons button:hover {
-  background: #f0f0f0;
+  background: var(--color-light-grey);
 }
 
 .location-buttons button.active {
-  background: #667eea;
-  color: white;
+  background: var(--color-primary-purple);
+  color: var(--color-light-cream);
+  font-weight: 500;
 }
 
 .content-grid {
@@ -103,10 +115,11 @@
 }
 
 .content-section {
-  background: white;
+  background: var(--color-light-cream);
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(94, 53, 137, 0.15);
+  border: 1px solid var(--color-light-grey);
 }
 
 .content-section.full-width {
@@ -114,10 +127,57 @@
 }
 
 .content-section h2 {
+  font-family: var(--font-primary);
+  font-weight: 500;
   margin-bottom: 20px;
-  color: #333;
-  border-bottom: 2px solid #667eea;
+  color: var(--color-primary-purple);
+  border-bottom: 2px solid var(--color-primary-purple);
   padding-bottom: 10px;
+}
+
+/* Typography utilities for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  color: var(--color-primary-purple);
+}
+
+h1 {
+  font-weight: 400;
+}
+
+h2 {
+  font-weight: 500;
+}
+
+h3 {
+  font-weight: 700;
+}
+
+/* Accent font for dates, prices, and special elements */
+.date-display,
+.price-display,
+.accent-text {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  color: var(--color-light-cream);
+}
+
+.date-display.bold,
+.price-display.bold,
+.accent-text.bold {
+  font-weight: 700;
+}
+
+/* Elements that should use accent font on dark background */
+.dark-background {
+  background-color: var(--color-primary-purple);
+  color: var(--color-light-cream);
+}
+
+.dark-background .date-display,
+.dark-background .price-display,
+.dark-background .accent-text {
+  color: var(--color-light-cream);
 }
 
 @media (max-width: 768px) {
