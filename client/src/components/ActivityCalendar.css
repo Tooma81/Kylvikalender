@@ -1,7 +1,8 @@
-.calendar {
+.activity-calendar {
   background: #fff;
   --box-height: 100px;
-  --box-width: 60px;
+  --box-width: 80px;
+  padding: 20px;
 }
 
 .calendar-title {
@@ -37,6 +38,39 @@
   width: var(--box-width);
   border: #EDAC66 solid 1px;
 }
+
+/* Kuude filter */
+.month-filter {
+  display: flex;
+  justify-content: flex-end;
+  right: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.month-filter-btn {
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 20px;
+  width: 70px;
+  height: 48px;
+  margin: 0 5px;
+  transition: 0.3s;
+}
+
+/* Nuppude tausta värvid */
+.month-filter-btn.winter {background-color: #90D4F6}
+.month-filter-btn.spring {background-color: #C0D5C1}
+.month-filter-btn.summer {background-color: #FEEFDE}
+.month-filter-btn.autumn {background-color: #EDAC66}
+
+.month-filter-btn.winter:hover {background-color: #BDE9FF}
+.month-filter-btn.spring:hover {background-color: #DAE9DB}
+.month-filter-btn.summer:hover {background-color: #FFF8F0}
+.month-filter-btn.autumn:hover {background-color: #FFD19F}
 
 /* Kalendri tausta värvid */
 .winter {background-color: rgba(144, 212, 246, 0.1)}
@@ -74,3 +108,4 @@
 .otsekulv {background-color: #90D4F6; margin-top: calc(var(--box-height) / 3);}
 .kasvuhoonesse {background-color: #64328A; margin-top: calc(var(--box-height) / 3 * 2); color: #fff;}
 .oue {background-color: #EDAC66; margin-top: calc(var(--box-height) / 3 * 2);}
+

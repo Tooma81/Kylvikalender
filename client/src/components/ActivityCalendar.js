@@ -36,9 +36,16 @@ function ActivityCalendar() {
     <div className="activity-calendar">
       <h1 className="calendar-title">Külvikalender</h1>
       <div className='calendar-search'></div>
-      <div className='month-filter'>
-      </div>
       <div className='calendar'>
+        <div className='month-filter'>
+          {months.map((month) => (
+            <div
+              className={`month-filter-btn ${month.season}`}
+            >
+              {month.name}
+            </div>
+          ))}
+        </div>
         {crops.map((crop) => (
           <div className='calendar-row' key={crop.id}>
           <div className='plant-name'>{crop.name}</div>
