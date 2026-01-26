@@ -1,12 +1,20 @@
+<<<<<<< Updated upstream
 import React, { useState } from 'react';
 import './App.css';
 import ActivityCalendar from './components/ActivityCalendar';
 import ProductList from './components/ProductList';
+=======
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingPage from './components/LandingPage';
+import FilterableCalendar from './components/FilterableCalendar';
+>>>>>>> Stashed changes
 
 function App() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
+<<<<<<< Updated upstream
     <div className="app">
       <header className="app-header">
         <h1>Külvikalender</h1>
@@ -76,6 +84,14 @@ function App() {
         <ActivityCalendar />
       </div>
     </div>
+=======
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/kalender" element={<FilterableCalendar />} />
+      </Routes>
+    </Router>
+>>>>>>> Stashed changes
   );
 }
 
