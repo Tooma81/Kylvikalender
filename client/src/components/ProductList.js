@@ -30,7 +30,12 @@ return (
   <div className="product-section">
     <div className="product-header">
       <h2>Võib vaja minna...</h2>
-      <a href="..." className="view-all">Vaata kõiki külvitooteid!</a>
+      <a 
+      href="https://gardest.ee/aiatarbed/kulvitarbed/kulvi_abivahendid/" 
+      className="view-all" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      >Vaata kõiki külvitooteid!</a>
     </div>
 
     <div className="carousel-container">
@@ -39,7 +44,13 @@ return (
       
       <div className="product-grid" ref={scrollRef}>
         {products.map((product) => (
-          <a key={product.id} href={product.product_url} className="product-card">
+          <a 
+          key={product.id} 
+          href={product.product_url} 
+          className="product-card" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          >
             <div className="image-container">
               <img src={product.image_url} alt={product.name} />
             </div>
