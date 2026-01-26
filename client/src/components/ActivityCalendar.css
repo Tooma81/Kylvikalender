@@ -45,11 +45,11 @@
 .autumn {background-color: rgba(237, 172, 102, 0.15)}
 
 /* Ümarad servad esimesele ja viimasele kastile */
-.month-box:nth-child(2) {
+.month-box:first-child {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
-.month-box:last-child {
+.month-box:nth-child(12) {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }

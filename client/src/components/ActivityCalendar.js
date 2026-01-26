@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ActivityCalendar.css';
-import { getCrops, getMonths, getUserCrops, addUserCrop, removeUserCrop, getUserActivities } from '../services/api';
+import { getCrops, getMonths } from '../services/api';
 
 function ActivityCalendar() {
   const [crops, setCrops] = useState([]);
@@ -43,6 +43,15 @@ function ActivityCalendar() {
           <div className='calendar-row' key={crop.id}>
           <div className='plant-name'>{crop.name}</div>
             <div className='month-container'>
+              {months.map((month) => (
+                <div 
+                  key={month.id} 
+                  className={`month-box ${month.season}`}
+                  title={month.name} // Näitab kuu nime peale liikudes
+                >
+                  {/* Soovi korral võid siia sisse panna ka teksti: {month.id} */}
+                </div>
+              ))}
               {crop.periods
                 .filter((period) => period.start >= 1)
                 .map((period) =>
@@ -57,15 +66,6 @@ function ActivityCalendar() {
                     {period.symbol}
                   </div>
               )}
-              {months.map((month) => (
-                <div 
-                  key={month.id} 
-                  className={`month-box ${month.season}`}
-                  title={month.name} // Näitab kuu nime peale liikudes
-                >
-                  {/* Soovi korral võid siia sisse panna ka teksti: {month.id} */}
-                </div>
-              ))}
             </div>
         </div>
         ))}

@@ -246,56 +246,10 @@ function getCropById(id) {
   return crops.find(crop => crop.id === id);
 }
 
-// Get user activities based on selected crops and location
-function getUserActivities(userCrops, location, days = 14) {
-  const today = new Date();
-  const endDate = new Date(today);
-  endDate.setDate(today.getDate() + days);
-  
-  const activities = [];
-  
-  userCrops.forEach(userCrop => {
-    const crop = getCropById(userCrop.cropId);
-    if (!crop || !crop.periods[location]) {
-      return;
-    }
-    
-    const period = crop.periods[location];
-    const year = today.getFullYear();
-    
-    period.activities.forEach(activity => {
-      // Create date for this year
-      let activityDate = new Date(year, activity.month - 1, activity.day);
-      
-      // If activity date has passed this year, check next year
-      if (activityDate < today) {
-        activityDate = new Date(year + 1, activity.month - 1, activity.day);
-      }
-      
-      // Check if activity is within the date range
-      if (activityDate >= today && activityDate <= endDate) {
-        activities.push({
-          date: activityDate.toISOString().split('T')[0],
-          cropId: crop.id,
-          cropName: crop.name,
-          location: location,
-          type: activity.type,
-          description: activity.description,
-          daysUntil: Math.ceil((activityDate - today) / (1000 * 60 * 60 * 24))
-        });
-      }
-    });
-  });
-  
-  // Sort by date
-  activities.sort((a, b) => new Date(a.date) - new Date(b.date));
-  
-  return activities;
-}
+
 
 module.exports = {
   getCrops,
   getCropById,
-  getUserActivities,
   getMonths,
 };
