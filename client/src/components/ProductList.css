@@ -1,129 +1,176 @@
 .product-section {
-  padding: 20px;
-  max-width: 1200px;
+  padding: 40px 20px;
+  max-width: 1100px; /* Veidi kitsam, et sarnaneda näidisele */
   margin: 0 auto;
+  background-color: transparent; /* Eemaldab võimaliku kollaka kuma */
 }
 
 .product-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #6b4fbb; /* See lilla joon pealkirja all */
+  padding-bottom: 8px;
 }
 
 .product-header h2 {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 22px;
+  font-weight: 800;
+  color: #4a348b;
+  margin: 0;
 }
 
 .view-all {
-  color: #6b4fbb; /* Gardesti lilla sarnane toon */
+  color: #6b4fbb;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.view-all:hover {
   text-decoration: underline;
-  font-size: 0.9rem;
 }
 
 .product-grid {
   display: flex;
-  gap: 20px;
-  overflow-x: auto; /* Võimaldab horisontaalset kerimist */
-  padding-bottom: 15px;
-  scrollbar-width: none; /* peidab scrollbar Firefoxis */
+  gap: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
   scroll-behavior: smooth;
-  padding: 10px 5px;
-  scroll-snap-type: x mandatory; /* Paneb tooted "paika hüppama" */
+  padding: 20px 5px;
+  width: 100%; /* Veendu, et grid täidab siseruumi */
 }
 
-/* Peidame scrollbari Chrome/Safari jaoks, et oleks ilusam */
 .product-grid::-webkit-scrollbar {
-  height: 6px;
   display: none;
 }
-.product-grid::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 10px;
-}
 
+/* --- TOOTEKAARDI MUUDATUSED --- */
 .product-card {
-  min-width: 200px; /* Kaardi laius */
+  min-width: 240px; /* Suurus, mis sarnaneb näidise proportsioonidele */
+  max-width: 240px;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s;
   flex: 0 0 auto;
-  scroll-snap-align: start;
-  background: white;
+  background: #ffffff;
+  border-radius: 16px; /* KURVILISEMAD NURGAD */
+  padding: 12px;
+  transition: all 0.3s ease; /* Sujuvam üleminek */
+  display: flex;
+  flex-direction: column;
 }
 
+/* VARI PEALEMINEMISEL */
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* TUGEVAM VARI NAGU NÄIDISEL */
 }
 
 .image-container {
-  background-color: #ffffff; /* Puhas valge taust */
-  border-radius: 12px;
-  padding: 15px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  aspect-ratio: 1 / 1; /* Teeb kasti ruudukujuliseks */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Õrn vari nagu Figmas */
-  margin-bottom: 12px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9; /* Väga hele hall taust pildi taga */
+  border-radius: 12px;
   overflow: hidden;
 }
 
 .image-container img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* Hoiab pildi proportsioonis */
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
 }
 
 .product-title {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: #333;
-  line-height: 1.3;
-  height: 2.6em; /* Lubab täpselt 2 rida teksti */
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  /* Lubab näidata rohkem teksti, kui vaja */
 }
 
 .price-info {
-  font-size: 0.9rem;
+  margin-top: auto; /* Lükkab hinna alati kaardi põhja */
 }
 
 .current-price {
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #4a348b; /* Lilla hind */
 }
 
-.member-price, .save-price {
-  font-size: 0.8rem;
-  color: #6b4fbb;
-  margin-top: 2px;
+.member-price {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 4px;
 }
 
+/* Lisame konteinerile külgedele ruumi, et nool saaks "välja ulatuda" */
 .carousel-container {
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
+  padding: 0 20px; /* See tekitab ruumi, kuhu nool saab liikuda */
+  box-sizing: border-box;
 }
 
-
+/* NOOLED */
 .nav-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  background: transparent;
+  border: none;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  font-size: 24px;
+  z-index: 30; /* Kõrgem z-index, et olla kõige peal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s, opacity 0.2s;
 }
 
-.nav-btn.left { left: -20px; }
-.nav-btn.right { right: -20px; }
+/* Parempoolne nool asetseb viimase kaardi peal/kõrval */
+.nav-btn.right {
+  right: -10px; /* Negatiivne väärtus viib noole kaardi servast väljapoole */
+}
 
-.nav-btn:hover { background: #f8f8f8; }
+/* Vasakpoolne nool (vajadusel) */
+.nav-btn.left {
+  left: -10px;
+}
+
+.nav-btn:hover {
+  transform: translateY(-50%) scale(1.2); /* Suureneb veidi peale minnes */
+}
+/* Minimalistlik noolekujundus (kaks kriipsu) */
+.nav-btn::after {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border-right: 4px solid #000;
+  border-bottom: 4px solid #000;
+  display: block;
+  /* See filter tekitab valge "aura", mis teeb noole nähtavaks ka mustal taustal */
+  filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 1px #fff); 
+}
+
+.nav-btn.right::after {
+  transform: rotate(-45deg); /* Paremale suunatud nool */
+}
+
+.nav-btn.left::after {
+  transform: rotate(135deg); /* Vasakule suunatud nool */
+}
+
+/* Peidame vasaku noole, kui oleme alguses (valikuline loogika JS-is) */
+.nav-btn.hidden {
+  display: none;
+}

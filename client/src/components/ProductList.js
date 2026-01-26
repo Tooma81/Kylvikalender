@@ -26,39 +26,37 @@ const ProductList = () => {
     }
   };
 
-  return (
-    <div className="product-section">
-      <div className="product-header">
-        <h2>Võib vaja minna...</h2>
-        <a href="https://gardest.ee/aiatarbed/kulvitarbed/kulvi_abivahendid/" target="_blank" rel="noreferrer" className="view-all">
-          Vaata kõiki külvitooteid!
-        </a>
-      </div>
-
-      <div className="carousel-container">
-        <button className="nav-btn left" onClick={() => scroll('left')}>‹</button>
-        
-        <div className="product-grid" ref={scrollRef}>
-          {products.map((product) => (
-            <a key={product.id} href={product.product_url} target="_blank" rel="noreferrer" className="product-card">
-              <div className="image-container">
-                <img src={product.image_url} alt={product.name} />
-              </div>
-              <h3 className="product-title">{product.name}</h3>
-              <div className="price-info">
-                <span className="current-price">{product.price} €</span>
-                {product.member_price && (
-                  <div className="member-price">Püsikliendi hind: {product.member_price} €</div>
-                )}
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <button className="nav-btn right" onClick={() => scroll('right')}>›</button>
-      </div>
+return (
+  <div className="product-section">
+    <div className="product-header">
+      <h2>Võib vaja minna...</h2>
+      <a href="..." className="view-all">Vaata kõiki külvitooteid!</a>
     </div>
-  );
+
+    <div className="carousel-container">
+      {/* Vasak nool ilmub vaid siis, kui on keritud */}
+      <button className="nav-btn left" onClick={() => scroll('left')}></button>
+      
+      <div className="product-grid" ref={scrollRef}>
+        {products.map((product) => (
+          <a key={product.id} href={product.product_url} className="product-card">
+            <div className="image-container">
+              <img src={product.image_url} alt={product.name} />
+            </div>
+            <h3 className="product-title">{product.name}</h3>
+            <div className="price-info">
+              <span className="current-price">{product.price.toFixed(2)} €</span>
+              {/* Lisa siia ka säästu info kui andmebaasis olemas */}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {/* Parem nool asetseb gridi lõpus viimase toote peal */}
+      <button className="nav-btn right" onClick={() => scroll('right')}></button>
+    </div>
+  </div>
+);
 };
 
 export default ProductList;
