@@ -52,7 +52,6 @@ function MainContent() {
           
           <div className={`expandable-content ${isExpanded ? 'expanded' : ''}`}>
             <p>
-              <br />
               Külvikalendri <b>põhieesmärk on aidata aednikul valida õige aeg külviks</b>, 
               sest liiga vara külvatud taimed võivad kannatada külma käes ja liiga hilja 
               külvatud taimed ei pruugi jõuda enne sügist saaki anda.
