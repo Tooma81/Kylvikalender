@@ -125,13 +125,28 @@
 
 /* General card styling */
 .content-section.card-general {
-  background: var(--color-light-green);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 40px 25px;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.card-general-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: -220px;
 }
 
 .content-section.card-general h2 {
@@ -139,7 +154,7 @@
   font-size: 2.5rem;
   font-weight: 400;
   color: var(--color-primary-purple);
-  margin-bottom: 15px;
+  margin-bottom: 8px;
   border: none;
   padding: 0;
 }
@@ -149,7 +164,7 @@
   font-size: 1.2rem;
   font-weight: 400;
   color: var(--color-primary-purple);
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .content-section.card-general .card-button {
@@ -171,15 +186,31 @@
   box-shadow: 0 4px 8px rgba(94, 53, 137, 0.3);
 }
 
+
 /* Personal card styling */
 .content-section.card-personal {
-  background: var(--color-light-cream);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 40px 25px;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.card-personal-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: -215px;
 }
 
 .content-section.card-personal h2 {
@@ -187,7 +218,7 @@
   font-size: 2.5rem;
   font-weight: 400;
   color: var(--color-primary-purple);
-  margin-bottom: 15px;
+  margin-bottom: 8px;
   border: none;
   padding: 0;
 }
@@ -197,7 +228,7 @@
   font-size: 1.2rem;
   font-weight: 400;
   color: var(--color-primary-purple);
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .content-section.card-personal .card-button {

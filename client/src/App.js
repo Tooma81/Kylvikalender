@@ -8,15 +8,25 @@ function App() {
         <h1>Külvikalender</h1>
       </header>
       <div className="content-grid">
-        <div className="content-section card-general">
-          <h2>Üldine</h2>
-          <p className="card-subtitle">Kogu informatsioon ühes kohas!</p>
-          <button className="card-button">Vaata kogu külvikalendrit</button>
+        <div 
+          className="content-section card-general"
+          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Img/Test5.png)` }}
+        >
+          <div className="card-general-content">
+            <h2>Üldine</h2>
+            <p className="card-subtitle">Kogu informatsioon ühes kohas!</p>
+            <button className="card-button">Vaata kogu külvikalendrit</button>
+          </div>
         </div>
-        <div className="content-section card-personal">
-          <h2>Personaalne</h2>
-          <p className="card-subtitle">Loo endale meelepärane kalender ning prindi see!</p>
-          <button className="card-button">Minu külvikalender</button>
+        <div 
+          className="content-section card-personal"
+          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Img/Test6.png)` }}
+        >
+          <div className="card-personal-content">
+            <h2>Personaalne</h2>
+            <p className="card-subtitle">Loo endale meelepärane kalender ning prindi see!</p>
+            <button className="card-button">Minu külvikalender</button>
+          </div>
         </div>
       </div>
       <div className="info-section">
