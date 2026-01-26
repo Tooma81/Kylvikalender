@@ -1,7 +1,8 @@
-.calendar {
+.activity-calendar {
   background: #fff;
   --box-height: 100px;
-  --box-width: 60px;
+  --box-width: 80px;
+  padding: 20px;
 }
 
 .calendar-title {
@@ -36,6 +37,55 @@
   height: var(--box-height);
   width: var(--box-width);
   border: #EDAC66 solid 1px;
+}
+
+/* Kuude filter */
+.month-filter {
+  display: flex;
+  justify-content: flex-end;
+  right: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.month-filter-btn {
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 20px;
+  width: 70px;
+  height: 48px;
+  margin: 0 5px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.month-filter-btn:hover {
+  font-size: 21px;
+}
+
+.month-filter-btn.selected {
+  border: #000 solid 1px;
+  font-size: 21px;
+}
+
+/* Nuppude tausta värvid */
+.month-filter-btn.winter {background-color: #90D4F6}
+.month-filter-btn.spring {background-color: #C0D5C1}
+.month-filter-btn.summer {background-color: #FEEFDE}
+.month-filter-btn.autumn {background-color: #EDAC66}
+
+.month-filter-btn.winter:hover, .month-filter-btn.winter.selected {background-color: #BDE9FF}
+.month-filter-btn.spring:hover, .month-filter-btn.spring.selected {background-color: #DAE9DB}
+.month-filter-btn.summer:hover, .month-filter-btn.summer.selected {background-color: #FFF8F0}
+.month-filter-btn.autumn:hover, .month-filter-btn.autumn.selected {background-color: #FFD19F}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 /* Kalendri tausta värvid */
@@ -74,3 +124,4 @@
 .otsekulv {background-color: #90D4F6; margin-top: calc(var(--box-height) / 3);}
 .kasvuhoonesse {background-color: #64328A; margin-top: calc(var(--box-height) / 3 * 2); color: #fff;}
 .oue {background-color: #EDAC66; margin-top: calc(var(--box-height) / 3 * 2);}
+
