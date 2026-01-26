@@ -15,6 +15,12 @@ export const getCrops = async () => {
   return response.data;
 };
 
+// Get month data
+export const getMonths = async () => {
+  const response = await api.get('/months');
+  return response.data;
+};
+
 // Get crop by ID
 export const getCropById = async (id) => {
   const response = await api.get(`/crops/${id}`);

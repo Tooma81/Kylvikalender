@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { getCrops, getCropById, getUserActivities } = require('./data/crops');
+const { getCrops, getMonths, getCropById, getUserActivities } = require('./data/crops');
 const { validateUserSelection, validateDateRange } = require('./utils/validation');
 
 const app = express();
@@ -22,6 +22,15 @@ app.get('/api/crops', (req, res) => {
   try {
     const crops = getCrops();
     res.json(crops);
+  } catch (error) {
+    res.status(500).json({ error: 'Serveri viga: ' + error.message });
+  }
+});
+
+app.get('/api/months', (req, res) => {
+  try {
+    const months = getMonths();
+    res.json(months);
   } catch (error) {
     res.status(500).json({ error: 'Serveri viga: ' + error.message });
   }

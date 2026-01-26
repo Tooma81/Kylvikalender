@@ -70,6 +70,7 @@ const crops = [
       },
     ]
   },
+/*
   {
     id: 'tomat',
     name: 'Tomat',
@@ -222,12 +223,32 @@ const crops = [
         ]
       }
     }
-  }
+  } */
+]; 
+
+const months = [
+  { id: 1, name: 'JAAN', season: 'winter' },
+  { id: 2, name: 'VEEB', season: 'winter' },
+  { id: 3, name: 'MÄRTS', season: 'spring' },
+  { id: 4, name: 'APRIL', season: 'spring' },
+  { id: 5, name: 'MAI', season: 'spring' },
+  { id: 6, name: 'JUUNI', season: 'summer' },
+  { id: 7, name: 'JUULI', season: 'summer' },
+  { id: 8, name: 'AUG', season: 'summer' },
+  { id: 9, name: 'SEPT', season: 'autumn' },
+  { id: 10, name: 'OKT', season: 'autumn' },
+  { id: 11, name: 'NOV', season: 'autumn' },
+  { id: 12, name: 'DETS', season: 'winter' }
 ];
 
 // Get all crops
 function getCrops() {
   return crops;
+}
+
+// Get all months
+function getMonths() {
+  return months;
 }
 
 // Get crop by ID
@@ -285,5 +306,6 @@ function getUserActivities(userCrops, location, days = 14) {
 module.exports = {
   getCrops,
   getCropById,
-  getUserActivities
+  getUserActivities,
+  getMonths,
 };
