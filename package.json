@@ -8,7 +8,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server/index.js",
     "client": "cd client && npm start",
-    "install-all": "npm install && cd client && npm install"
+    "install-all": "npm install && cd client && npm install",
+    "scrape": "node -e \"require('./server/scraper.js')().catch(console.error)\""
   },
   "keywords": [
     "külvikalender",
