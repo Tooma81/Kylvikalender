@@ -6,11 +6,6 @@ import ProductList from './components/ProductList';
 function App() {
   return (
     <div className="app">
-      <div className="content-section"></div>
-      <div className="content-section"></div>
-      <div className="content-section">
-        <ActivityCalendar />
-      </div>
       <header className="app-header">
         <h1>Külvikalender</h1>
       </header>
@@ -45,7 +40,9 @@ function App() {
         <ProductList /> {/* Keskmine box */}
       </div>
        
-      <div className="content-section"></div>
+      <div className="content-section">
+        <ActivityCalendar />
+      </div>
     </div>
 
 
