@@ -1,5 +1,7 @@
 .calendar {
   background: #fff;
+  --box-height: 100px;
+  --box-width: 60px;
 }
 
 .calendar-title {
@@ -8,21 +10,31 @@
   font-weight: 700;
 }
 
+.calendar-row {
+  display: flex;
+  align-items: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+}
+
 .plant-name {
   color: #000 !important;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 500;
+  width: 30%
 }
 
 .month-container {
+  height: var(--box-height);
   display: flex;
   flex-direction: row;
   border-radius: 8px;
 }
 
 .month-box {
-  height: 100px;
-  width: 50px;
+  height: var(--box-height);
+  width: var(--box-width);
   border: #EDAC66 solid 1px;
 }
 
@@ -33,7 +45,7 @@
 .autumn {background-color: rgba(237, 172, 102, 0.15)}
 
 /* Ümarad servad esimesele ja viimasele kastile */
-.month-box:first-child {
+.month-box:nth-child(2) {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 }
@@ -41,3 +53,24 @@
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
+
+/* Kasvuperioodide markerid */
+.period-marker {
+  position: absolute;
+  color: #000;
+  font-size: calc(var(--box-height) * 0.20);
+  line-height: calc(var(--box-height) * 0.3);
+  width: calc(var(--box-width) * (var(--end) - var(--start) + 1)); /* Markeri laius arvutatakse vastavalt perioodi pikkusele */
+  height: calc(var(--box-height) / 3);
+  margin-left: calc((var(--start) - 1) * var(--box-width)); /* Markeri algus vastavalt kuule */
+  padding: 0 5px;
+  background-color: #C0D5C1;
+  border-radius: 14px;
+  z-index: 999;
+}
+
+/* Markerite värvid ja positsoonid */
+.ettekasvatus {background-color: #C0D5C1;}
+.otsekulv {background-color: #90D4F6; margin-top: calc(var(--box-height) / 3);}
+.kasvuhoonesse {background-color: #64328A; margin-top: calc(var(--box-height) / 3 * 2); color: #fff;}
+.oue {background-color: #EDAC66; margin-top: calc(var(--box-height) / 3 * 2);}

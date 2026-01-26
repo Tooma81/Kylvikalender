@@ -43,6 +43,20 @@ function ActivityCalendar() {
           <div className='calendar-row' key={crop.id}>
           <div className='plant-name'>{crop.name}</div>
             <div className='month-container'>
+              {crop.periods
+                .filter((period) => period.start >= 1)
+                .map((period) =>
+                  <div
+                    key={period.id}
+                    className={`period-marker ${period.id}`}
+                    style={{
+                      '--start': period.start,
+                      '--end': period.end
+                    }}
+                  >
+                    {period.symbol}
+                  </div>
+              )}
               {months.map((month) => (
                 <div 
                   key={month.id} 
