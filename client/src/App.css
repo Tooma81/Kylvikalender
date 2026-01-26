@@ -111,7 +111,8 @@
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 40px;
+  margin-bottom: 40px;
 }
 
 .content-section {
@@ -120,6 +121,133 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(94, 53, 137, 0.15);
   border: 1px solid var(--color-light-grey);
+}
+
+/* General card styling */
+.content-section.card-general {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 25px;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.card-general-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: -220px;
+}
+
+.content-section.card-general h2 {
+  font-family: var(--font-primary);
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--color-primary-purple);
+  margin-bottom: 8px;
+  border: none;
+  padding: 0;
+}
+
+.content-section.card-general .card-subtitle {
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--color-primary-purple);
+  margin-bottom: 15px;
+}
+
+.content-section.card-general .card-button {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 400;
+  background: var(--color-primary-purple);
+  color: var(--color-primary-white);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.content-section.card-general .card-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(94, 53, 137, 0.3);
+}
+
+
+/* Personal card styling */
+.content-section.card-personal {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 25px;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+}
+
+.card-personal-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: -215px;
+}
+
+.content-section.card-personal h2 {
+  font-family: var(--font-primary);
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--color-primary-purple);
+  margin-bottom: 8px;
+  border: none;
+  padding: 0;
+}
+
+.content-section.card-personal .card-subtitle {
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--color-primary-purple);
+  margin-bottom: 15px;
+}
+
+.content-section.card-personal .card-button {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 400;
+  background: var(--color-primary-purple);
+  color: var(--color-primary-white);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.content-section.card-personal .card-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(94, 53, 137, 0.3);
 }
 
 .content-section.full-width {
@@ -192,4 +320,44 @@ h3 {
   .location-buttons {
     flex-direction: column;
   }
+}
+
+/* Info section styling */
+.info-section {
+  margin-bottom: 40px;
+  max-width: 100%;
+}
+
+.info-section h2 {
+  font-family: var(--font-primary);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-text-black);
+  margin-bottom: 20px;
+  border: none;
+  padding: 0;
+}
+
+.info-section p {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-black);
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.info-section .show-more-link {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-primary-purple);
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline-block;
+  transition: opacity 0.3s ease;
+}
+
+.info-section .show-more-link:hover {
+  opacity: 0.8;
 }
