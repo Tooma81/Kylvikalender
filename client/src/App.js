@@ -48,6 +48,8 @@ function MainContent() {
             <b>Külvikalender on juhend või ajakava</b>, mis aitab planeerida aiatöid
             kogu kasvuperioodi jooksul. See näitab, millal on kõige sobivam aeg erinevaid
             taimi külvata, ette kasvatada, istutada, ümber istutada ja saaki koristada. 
+            Külvikalender arvestab taimede kasvuvajadusi ning kohalikke ilmastiku- ja kliimatingimusi, 
+            et taimed saaksid kasvada võimalikult soodsates oludes.
           </p>
           
           <div className={`expandable-content ${isExpanded ? 'expanded' : ''}`}>
@@ -55,6 +57,8 @@ function MainContent() {
               Külvikalendri <b>põhieesmärk on aidata aednikul valida õige aeg külviks</b>, 
               sest liiga vara külvatud taimed võivad kannatada külma käes ja liiga hilja 
               külvatud taimed ei pruugi jõuda enne sügist saaki anda.
+              Paljudes külvikalendrites on eraldi välja toodud, millal külvata seemned toas ette, 
+              millal istutada taimed kasvuhoonesse ning millal külvata või istutada otse avamaale.
             </p>
           </div>
           

@@ -1,6 +1,6 @@
 .product-section {
   padding: 40px 20px;
-  max-width: 1100px; /* Veidi kitsam, et sarnaneda näidisele */
+  max-width: 100%; /* Veidi kitsam, et sarnaneda näidisele */
   margin: 0 auto;
   background-color: transparent; /* Eemaldab võimaliku kollaka kuma */
 }
@@ -14,7 +14,7 @@
 }
 
 .product-header h2 {
-  font-size: 28px;
+  font-size: 2.5rem;
   font-weight: 500;
   color: #000000;
   margin: 0;
