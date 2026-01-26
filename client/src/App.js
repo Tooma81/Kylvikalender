@@ -35,7 +35,10 @@ function App() {
         <p>Külvikalender on juhend või ajakava, mis aitab planeerida aiatöid kogu kasvuperioodi jooksul. See näitab, millal on kõige sobivam aeg erinevaid taimi külvata, ette kasvatada, istutada, ümber istutada ja saaki koristada. Külvikalender arvestab taimede kasvuvajadusi ning kohalikke ilmastiku- ja kliimatingimusi, et taimed saaksid kasvada võimalikult soodsates oludes.</p>
         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Kuva rohkem</a>
       </div>
-      <div className="content-section"></div>
+      <div className="content-section">
+        <ProductList /> {/* Keskmine box */}
+      </div>
+       
       <div className="content-section"></div>
     </div>
 
