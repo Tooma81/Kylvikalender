@@ -548,19 +548,196 @@
 
 @media (max-width: 768px) {
   .filterable-calendar-page {
-    padding: 10px;
+    padding: 12px;
+    padding-bottom: env(safe-area-inset-bottom, 12px);
+  }
+
+  .calendar-header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
   }
 
   .calendar-header h1 {
-    font-size: 1.5rem;
+    order: 1;
+    width: 100%;
+    font-size: 1.35rem;
+    text-align: center;
   }
 
-  .plant-name {
-    font-size: 1.5rem;
+  .back-button,
+  .download-button {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 10px;
+    font-size: 0.9rem;
+  }
+
+  .calendar-sidebar {
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+
+  .sidebar-section {
+    margin-bottom: 16px;
+  }
+
+  .sidebar-section h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .filter-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filter-buttons .control-button {
+    flex: 1 1 auto;
+    min-width: 120px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .filter-checkboxes {
+    max-height: 180px;
+  }
+
+  .filter-checkbox {
+    padding: 10px 8px;
+    min-height: 44px;
+  }
+
+  .search-input {
+    padding: 12px;
+    font-size: 16px; /* prevents zoom on focus iOS */
+  }
+
+  .calendar-container {
+    padding: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .calendar-legend {
+    padding: 8px 0 12px;
+    margin-bottom: 12px;
+    gap: 16px;
+  }
+
+  .legend-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+  }
+
+  .legend-label {
+    font-size: 0.75rem;
   }
 
   .calendar {
-    --box-height: 80px;
-    --box-width: 50px;
+    min-width: min(100%, 800px);
+    --box-height: 64px;
+    --box-width: 44px;
+  }
+
+  .crop-column-header {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    min-height: 40px;
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+
+  .month-header-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .month-header {
+    min-width: 44px;
+    height: 40px;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  .plant-name {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    padding: 6px 8px;
+    font-size: 0.75rem;
+  }
+
+  .month-cell {
+    min-width: 44px;
+  }
+
+  .period-marker-icon {
+    max-height: 36px;
+    max-width: 34px;
+  }
+
+  .no-crops-message {
+    padding: 32px 16px;
+  }
+
+  .no-crops-message p {
+    font-size: 1rem;
+  }
+}
+
+/* Väike ekraan (näiteks telefoni portree) */
+@media (max-width: 480px) {
+  .filterable-calendar-page {
+    padding: 8px;
+  }
+
+  .calendar-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .back-button,
+  .download-button {
+    padding: 10px 8px;
+    font-size: 0.85rem;
+  }
+
+  .filter-buttons .control-button {
+    min-width: 100%;
+    font-size: 0.85rem;
+  }
+
+  .crop-column-header,
+  .plant-name {
+    width: 72px;
+    min-width: 72px;
+    max-width: 72px;
+    font-size: 0.7rem;
+  }
+
+  .month-header {
+    min-width: 38px;
+    height: 36px;
+    font-size: 0.65rem;
+  }
+
+  .month-cell {
+    min-width: 38px;
+  }
+
+  .calendar {
+    --box-height: 56px;
+    --box-width: 38px;
+  }
+
+  .period-marker-icon {
+    max-height: 28px;
+    max-width: 26px;
   }
 }
