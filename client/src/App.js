@@ -6,6 +6,31 @@ import FilterableCalendar from './components/FilterableCalendar';
 import ProductList from './components/ProductList';
 import LandingPage from './components/LandingPage';
 
+function smoothScrollToElement(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const start = window.scrollY ?? document.documentElement.scrollTop;
+  const end = el.getBoundingClientRect().top + start;
+  const distance = end - start;
+  const duration = 1000;
+  let startTime = null;
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function step(timestamp) {
+    if (startTime == null) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = easeInOutCubic(progress);
+    window.scrollTo(0, start + distance * eased);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
+
 function HomePage() {
   const navigate = useNavigate();
 
@@ -23,7 +48,7 @@ function HomePage() {
           <div className="card-general-content">
             <h2>Üldine</h2>
             <p className="card-subtitle">Kogu informatsioon ühes kohas!</p>
-            <button className="card-button" onClick={() => navigate('/kalender')}>
+            <button className="card-button" onClick={() => smoothScrollToElement('calendar')}>
               Vaata kogu külvikalendrit
             </button>
           </div>
@@ -61,7 +86,7 @@ function HomePage() {
         <ProductList />
       </div>
        
-      <div className="content-section">
+      <div id="calendar" className="content-section">
         <ActivityCalendar />
       </div>
     </div>
