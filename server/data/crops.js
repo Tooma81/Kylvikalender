@@ -209,20 +209,19 @@ const crops = [
 ]; 
 
 const months = [
-  { id: 1, name: 'JAAN', season: 'winter' },
-  { id: 2, name: 'VEEB', season: 'winter' },
-  { id: 3, name: 'MÄR', season: 'spring' },
-  { id: 4, name: 'APR', season: 'spring' },
-  { id: 5, name: 'MAI', season: 'spring' },
-  { id: 6, name: 'JUN', season: 'summer' },
-  { id: 7, name: 'JUL', season: 'summer' },
-  { id: 8, name: 'AUG', season: 'summer' },
-  { id: 9, name: 'SEPT', season: 'autumn' },
-  { id: 10, name: 'OKT', season: 'autumn' },
-  { id: 11, name: 'NOV', season: 'autumn' },
-  { id: 12, name: 'DETS', season: 'winter' }
+  { id: 1, name: 'JAAN', fullName: 'jaanuar', season: 'winter' },
+  { id: 2, name: 'VEEB', fullName: 'veebruar', season: 'winter' },
+  { id: 3, name: 'MÄR', fullName: 'märts', season: 'spring' },
+  { id: 4, name: 'APR', fullName: 'aprill', season: 'spring' },
+  { id: 5, name: 'MAI', fullName: 'mai', season: 'spring' },
+  { id: 6, name: 'JUN', fullName: 'juuni', season: 'summer' },
+  { id: 7, name: 'JUL', fullName: 'juuli', season: 'summer' },
+  { id: 8, name: 'AUG', fullName: 'august', season: 'summer' },
+  { id: 9, name: 'SEPT', fullName: 'september', season: 'autumn' },
+  { id: 10, name: 'OKT', fullName: 'oktoober', season: 'autumn' },
+  { id: 11, name: 'NOV', fullName: 'november', season: 'autumn' },
+  { id: 12, name: 'DETS', fullName: 'detsember', season: 'winter' }
 ];
-
 // Get all crops
 function getCrops() {
   return crops.map(crop => ({

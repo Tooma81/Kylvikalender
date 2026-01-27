@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './FilterableCalendar.css';
 import { getCrops, getMonths } from '../services/api';
+import  CalendarRow  from './CalendarRow';
 
 function ActivityCalendar() {
   const [crops, setCrops] = useState([]);
@@ -43,15 +44,7 @@ function ActivityCalendar() {
     }
   };
 
-  const toggleRowExpanded = async () => {
-    try {
-      rowExpanded ? setRowExpanded(false) : setRowExpanded(true);
-    } catch (err) {
-      setError('Andmete laadimisel tekkis viga: ' + err.message);
-    } finally {
-      loadData();
-    }
-  }
+  
 
   return (
     <div className="activity-calendar">
@@ -81,40 +74,7 @@ function ActivityCalendar() {
           );
         })
         .map((crop) => (
-          <div className='calendar-row' key={crop.id}>
-            <div 
-              className={`row-toggle prevent-select ${rowExpanded ? 'open' : ''}`}
-              onClick={() => toggleRowExpanded()}
-            >
-              ⌵
-            </div>
-            <div className='plant-name'>{crop.name}</div>
-              <div className='month-container'>
-                {(months || []).map((month) => (
-                  <div 
-                    key={month?.id ?? month?.name} 
-                    className={`month-box ${month?.season || ''}`}
-                    title={month?.name}
-                  >
-                    {/* Soovi korral võid siia sisse panna ka teksti: {month.id} */}
-                  </div>
-                ))}
-                {(crop.periods || [])
-                  .filter((period) => period && period.start >= 1)
-                  .map((period) =>
-                    <div
-                      key={period.id}
-                      className={`period-marker ${period.id}`}
-                      style={{
-                        '--start': period.start,
-                        '--end': period.end
-                      }}
-                    >
-                      {period.symbol}
-                    </div>
-                )}
-              </div>
-        </div>
+          <CalendarRow key={crop.id} crop={crop} months={months} />
         ))}
       </div>
     </div>

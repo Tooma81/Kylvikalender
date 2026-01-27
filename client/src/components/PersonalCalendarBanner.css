@@ -1,0 +1,158 @@
+.personal-calendar-banner {
+  background-color: #fdf0e4; /* See kreemjas beež toon Sinu pildilt */
+  padding: 40px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.banner-inner {
+  max-width: 1200px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+}
+
+.illustration-container {
+  width: 180px;
+  display: flex;
+  justify-content: center;
+}
+
+.illustration-img {
+  width: 100%;
+  height: auto;
+  /* Vajadusel saad siin värvi muuta filteriga, kui png on must-valge */
+}
+
+.banner-text h1 {
+  color: #5e3587;
+  font-family: 'Poppins', sans-serif; /* Või muu Gardesti font */
+  font-size: 2.8rem;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.banner-text p {
+  color: #5e3587;
+  font-size: 1.8rem;
+  margin: 5px 0 20px 0;
+}
+
+.banner-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-purple {
+  background-color: #5e3587;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-purple-outline {
+  background: transparent;
+  color: #5e3587;
+  border: 2px solid #5e3587;
+  padding: 8px 23px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.banner-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.banner-photo {
+  width: 480px; /* Suurem foto paremal servas */
+  height: auto;
+  border-radius: 200px 200px 0 0; /* Gardesti iseloomulik kaarjas ülaserv */
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .banner-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .banner-left {
+    flex-direction: column;
+  }
+  .banner-photo {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+.personal-calendar-banner {
+  background-color: #fdf0e4;
+  padding: 40px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative; /* Vajalik noole positsioneerimiseks */
+}
+
+.banner-inner {
+  max-width: 1200px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Noole stiil */
+.back-arrow-container {
+  position: absolute;
+  left: -50px; /* Sõltub Sinu lehe laiusest */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+.back-arrow-container:hover {
+  opacity: 0.7;
+}
+
+.back-arrow-icon {
+  width: 35px;
+  height: 35px;
+}
+
+/* MOBIIL */
+@media (max-width: 1300px) {
+  .back-arrow-container {
+    left: 10px; /* Kui ekraan on kitsas, liigutame noole bänneri sisse */
+  }
+}
+
+/* Ülejäänud bänneri stiilid (illustratsioon, tekst, foto) jäävad samaks */
+.illustration-img {
+  width: 150px;
+  height: auto;
+}
+
+.banner-photo {
+  width: 480px;
+  height: auto;
+  border-radius: 200px 200px 0 0;
+  object-fit: cover;
+}

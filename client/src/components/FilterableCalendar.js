@@ -6,6 +6,8 @@ import { ICON_BASE, LEGEND_ITEMS, MONTH_SHORT, getIconForPeriod } from '../utils
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import ProductList from './ProductList';
+// IMPORTI KONTROLL: veendu et fail on olemas src/components/ kaustas
+import PersonalCalendarBanner from './PersonalCalendarBanner'; 
 
 function FilterableCalendar() {
   const navigate = useNavigate();
@@ -59,15 +61,11 @@ function FilterableCalendar() {
     }
   };
 
-  // Kultuuri nähtavuse muutmine
+  // --- FILTREERIMISE JA PDF FUNKTSIOONID (Sinu originaal kood) ---
   const toggleCropVisibility = (cropId) => {
     setVisibleCrops(prev => {
       const newSet = new Set(prev);
-      if (newSet.has(cropId)) {
-        newSet.delete(cropId);
-      } else {
-        newSet.add(cropId);
-      }
+      newSet.has(cropId) ? newSet.delete(cropId) : newSet.add(cropId);
       return newSet;
     });
   };
@@ -87,14 +85,12 @@ function FilterableCalendar() {
   const toggleMonthVisibility = (monthId) => {
     setVisibleMonths(prev => {
       const newSet = new Set(prev);
-      if (newSet.has(monthId)) {
-        newSet.delete(monthId);
-      } else {
-        newSet.add(monthId);
-      }
+      newSet.has(monthId) ? newSet.delete(monthId) : newSet.add(monthId);
       return newSet;
     });
   };
+  const showAllMonths = () => setVisibleMonths(new Set(months.map(month => month.id)));
+  const hideAllMonths = () => setVisibleMonths(new Set());
 
   // Kõigi kuude nähtavaks muutmine
   const showAllMonths = () => {
@@ -289,12 +285,19 @@ function FilterableCalendar() {
                   <img src={ICON_BASE + item.icon} alt={item.label} className='legend-icon' />
                   <span className='legend-label'>{item.label}</span>
                 </div>
-              ))}
-            </div>
-            {filteredCrops.length === 0 ? (
-              <div className="no-crops-message">
-                <p>Valitud kultuure ei ole nähtaval.</p>
-                <p>Palun vali vähemalt üks kultuur filtreerimisribalt.</p>
+             </div>
+             {/* ... (siia jäävad ülejäänud filtrid) ... */}
+          </aside>
+
+          <main className="calendar-main">
+            <div className="calendar-container">
+              <div className='calendar-legend'>
+                {LEGEND_ITEMS.map((item) => (
+                  <div key={item.id} className='legend-item'>
+                    <img src={ICON_BASE + item.icon} alt={item.label} className='legend-icon' />
+                    <span className='legend-label'>{item.label}</span>
+                  </div>
+                ))}
               </div>
             ) : (
               <>
@@ -363,10 +366,9 @@ function FilterableCalendar() {
                   </div>
                 ))}
               </div>
-              </>
-            )}
-          </div>
-        </main>
+            </div>
+          </main>
+        </div>
       </div>
 
       <div className="content-section product-list-wrapper">

@@ -258,6 +258,19 @@
   min-width: 32px;
   object-fit: contain;
   flex-shrink: 0;
+.calendar-row-container {
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+  box-shadow: 2px 2px 10px #0000004f;
+}
+
+.calendar-row {
+  display: flex;
+  align-items: row;
+  justify-content: space-evenly;
+  align-items: center;
+  
 }
 
 .legend-label {
@@ -456,6 +469,83 @@
   max-height: 148px;
   max-width: 150px;
   object-fit: contain;
+/* Taime detailid */
+.expanded-details {
+  padding: 20px 50px;
+}
+
+.crop-details-container {
+  width: 60%;
+}
+
+.crop-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.crop-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+}
+
+.crop-image {
+  min-width: 100%;
+}
+
+.crop-description {
+  color: #000;
+  height: 50%;
+  margin: 10px 0;
+}
+
+.season-guide-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 65%;
+  padding: 10px;
+}
+
+.season-guide {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 15%;
+  width: 100%
+}
+
+.season-marker {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 15%;
+  margin: 0;
+  border-radius: 14px 0 0 14px;
+  font-size: 20px;
+}
+
+.period-title {
+  font-size: 20px;
+  color: #000;
+  margin-left: 5px;
+  white-space: nowrap;
+}
+
+.period-marker-title {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.period-month {
+  font-size: 20px;
+  font-weight: 700;
+  color:#000;
+  align-self: flex-end;
 }
 
 .loading, .error {
