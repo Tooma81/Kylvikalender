@@ -12,15 +12,14 @@ function FilterableCalendar() {
   const [months, setMonths] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [visibleCrops, setVisibleCrops] = useState(new Set()); // Hoitakse nähtavate kultuuride ID-sid
-  const [visibleMonths, setVisibleMonths] = useState(new Set()); // Hoitakse nähtavate kuude ID-sid
-  const [searchQuery, setSearchQuery] = useState(''); // Otsingu päring
+  const [visibleCrops, setVisibleCrops] = useState(new Set());
+  const [visibleMonths, setVisibleMonths] = useState(new Set());
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     loadData();
   }, []);
 
-  // Alguses on kõik kultuurid ja kuud nähtavad
   useEffect(() => {
     if (crops.length > 0 && visibleCrops.size === 0) {
       const allCropIds = new Set(crops.map(crop => crop.id));
@@ -125,12 +124,8 @@ function FilterableCalendar() {
         headerElement.style.display = 'none';
       }
 
-      // Lisa PDF-ekspordi klass, et kalender oleks kompaktsem (mahub ühele A4-le)
-      const pageElement = document.querySelector('.filterable-calendar-page');
-      if (pageElement) {
-        pageElement.classList.add('pdf-export');
-      }
-      await new Promise(resolve => setTimeout(resolve, 150));
+      // Oota väike aeg, et stiilid rakenduksid
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       const canvas = await html2canvas(calendarElement, {
         scale: 2,
@@ -139,9 +134,6 @@ function FilterableCalendar() {
         backgroundColor: '#ffffff'
       });
 
-      if (pageElement) {
-        pageElement.classList.remove('pdf-export');
-      }
       // Taasta külgriba ja päis
       if (sidebarElement) {
         sidebarElement.style.display = sidebarOriginalDisplay || '';
@@ -151,27 +143,39 @@ function FilterableCalendar() {
       }
 
       const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+      const pdf = new jsPDF('landscape', 'mm', 'a4');
+      
+      const imgWidth = 297; // A4 landscape width in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      // Kui pilt on liiga kõrge, jagame selle lehtedeks
+      let heightLeft = imgHeight;
+      let position = 0;
 
-      // A4 landscape: 297 mm laius, 210 mm kõrgus – kogu info ühele lehele, vasak ülanurk fikseeritud
-      const pageWidthMm = 297;
-      const pageHeightMm = 210;
-      const scaleMmPerPx = Math.max(pageWidthMm / canvas.width, pageHeightMm / canvas.height);
-      const imgWidthMm = canvas.width * scaleMmPerPx;
-      const imgHeightMm = canvas.height * scaleMmPerPx;
-      const xMm = 0;
-      const yMm = 0;
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= 210; // A4 height in mm
 
-      pdf.addImage(imgData, 'PNG', xMm, yMm, imgWidthMm, imgHeightMm);
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= 210;
+      }
+
       pdf.save('kylvikalender.pdf');
     } catch (err) {
       console.error('PDF genereerimise viga:', err);
       alert('PDF genereerimisel tekkis viga: ' + err.message);
-      document.querySelector('.filterable-calendar-page')?.classList.remove('pdf-export');
+      
+      // Taasta külgriba ja päis vea korral
       const sidebarElement = document.querySelector('.calendar-sidebar');
       const headerElement = document.querySelector('.calendar-header');
-      if (sidebarElement) sidebarElement.style.display = '';
-      if (headerElement) headerElement.style.display = '';
+      if (sidebarElement) {
+        sidebarElement.style.display = '';
+      }
+      if (headerElement) {
+        headerElement.style.display = '';
+      }
     }
   };
 
@@ -307,53 +311,62 @@ function FilterableCalendar() {
             ) : (
               <>
                 <div className='calendar'>
-                {/* Kuude päised - klikitavad */}
+                {/* Kuude päised – kõik 12 kuud, klikk näitab/peidab kuu */}
                 <div className='calendar-header-row calendar-grid-header'>
                   <div className='crop-column-header'>Köögivili</div>
                   <div className='month-header-container'>
-                    {filteredMonths.map((month) => (
-                      <div
-                        key={month.id}
-                        className='month-header'
-                        title={`Peida ${month.name}`}
-                        onClick={() => toggleMonthVisibility(month.id)}
-                      >
-                        {MONTH_SHORT[month.id] ?? month.name}
-                      </div>
-                    ))}
+                    {months.map((month) => {
+                      const isHidden = !visibleMonths.has(month.id);
+                      return (
+                        <button
+                          key={month.id}
+                          type="button"
+                          className={`month-header${isHidden ? ' hidden' : ''}`}
+                          title={isHidden ? `Näita ${month.name}` : `Peida ${month.name}`}
+                          onClick={() => toggleMonthVisibility(month.id)}
+                        >
+                          {MONTH_SHORT[month.id] ?? month.name}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
-                {/* Kultuuride read – iga kuu lahtris ikoonid ühel real */}
+                {/* Kultuuride read – 12 veergu, iga kuu lahtris ikoonid ühel real */}
                 {filteredCrops.map((crop) => (
                   <div className='calendar-row' key={crop.id}>
                     <div className='plant-name'>{crop.name}</div>
                     <div className='month-container'>
-                      {filteredMonths.map((month) => {
-                        const markersForMonth = crop.periods
-                          .filter((period) => period.start >= 1 && month.id >= period.start && month.id <= period.end)
-                          .map((period) => {
-                            const label = LEGEND_ITEMS.find((l) => l.id === period.id)?.label ?? '';
-                            const iconSrc = getIconForPeriod(period.id);
-                            return (
-                              <div
-                                key={`${crop.id}-${period.id}-${month.id}`}
-                                className={`period-marker ${period.id}`}
-                                title={label}
-                              >
-                                {iconSrc ? (
-                                  <img src={iconSrc} alt={label} className="period-marker-icon" />
-                                ) : (
-                                  period.symbol
-                                )}
-                              </div>
-                            );
-                          });
+                      {months.map((month) => {
+                        const isVisible = visibleMonths.has(month.id);
+                        const markersForMonth = isVisible
+                          ? crop.periods
+                              .filter((period) => period.start >= 1 && month.id >= period.start && month.id <= period.end)
+                              .map((period) => {
+                                const label = LEGEND_ITEMS.find((l) => l.id === period.id)?.label ?? '';
+                                const iconSrc = getIconForPeriod(period.id);
+                                return (
+                                  <div
+                                    key={`${crop.id}-${period.id}-${month.id}`}
+                                    className={`period-marker ${period.id}`}
+                                    title={label}
+                                  >
+                                    {iconSrc ? (
+                                      <img src={iconSrc} alt={label} className="period-marker-icon" />
+                                    ) : (
+                                      period.symbol
+                                    )}
+                                  </div>
+                                );
+                              })
+                          : [];
                         return (
-                          <div key={month.id} className='month-cell' title={month.name}>
+                          <div
+                            key={month.id}
+                            className={`month-cell${!isVisible ? ' hidden' : ''}`}
+                            title={month.name}
+                          >
                             <div className='month-box' />
-                            <div className='month-markers'>
-                              {markersForMonth}
-                            </div>
+                            <div className='month-markers'>{markersForMonth}</div>
                           </div>
                         );
                       })}

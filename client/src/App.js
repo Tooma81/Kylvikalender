@@ -1,17 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import ActivityCalendar from './components/ActivityCalendar';
 import FilterableCalendar from './components/FilterableCalendar';
 import ProductList from './components/ProductList';
-import LandingPage from './components/LandingPage';
-import FilterableCalendar from './components/FilterableCalendar';
-
-function MainContent() {
-  const [isExpanded, setIsExpanded] = useState(false);
 
 function HomePage() {
   const navigate = useNavigate();
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div className="app">
