@@ -1,9 +1,13 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import ActivityCalendar from './components/ActivityCalendar';
+import FilterableCalendar from './components/FilterableCalendar';
 import ProductList from './components/ProductList';
 
-function App() {
+function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <div className="app">
       <header className="app-header">
@@ -17,7 +21,9 @@ function App() {
           <div className="card-general-content">
             <h2>Üldine</h2>
             <p className="card-subtitle">Kogu informatsioon ühes kohas!</p>
-            <button className="card-button">Vaata kogu külvikalendrit</button>
+            <button className="card-button" onClick={() => navigate('/kalender')}>
+              Vaata kogu külvikalendrit
+            </button>
           </div>
         </div>
         <div 
@@ -27,7 +33,9 @@ function App() {
           <div className="card-personal-content">
             <h2>Personaalne</h2>
             <p className="card-subtitle">Loo endale meelepärane kalender ning prindi see!</p>
-            <button className="card-button">Minu külvikalender</button>
+            <button className="card-button" onClick={() => navigate('/kalender')}>
+              Minu külvikalender
+            </button>
           </div>
         </div>
       </div>
@@ -44,8 +52,17 @@ function App() {
         <ActivityCalendar />
       </div>
     </div>
+  );
+}
 
-
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/kalender" element={<FilterableCalendar />} />
+      </Routes>
+    </Router>
   );
 }
 
