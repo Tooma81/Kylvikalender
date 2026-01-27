@@ -96,6 +96,11 @@
   box-sizing: border-box;
 }
 
+#root {
+  min-height: 100vh;
+  display: block;
+}
+
 body {
   font-family: var(--font-primary);
   font-weight: 400;

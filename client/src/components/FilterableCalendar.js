@@ -21,21 +21,24 @@ function FilterableCalendar() {
     loadData();
   }, []);
 
+  const safeCrops = Array.isArray(crops) ? crops : [];
+  const safeMonths = Array.isArray(months) ? months : [];
+
   useEffect(() => {
-    if (crops.length > 0 && visibleCrops.size === 0) {
-      const allCropIds = new Set(crops.map(crop => crop.id));
+    if (safeCrops.length > 0 && visibleCrops.size === 0) {
+      const allCropIds = new Set(safeCrops.map(crop => crop?.id).filter(Boolean));
       setVisibleCrops(allCropIds);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [crops.length]);
+  }, [safeCrops.length]);
 
   useEffect(() => {
-    if (months.length > 0 && visibleMonths.size === 0) {
-      const allMonthIds = new Set(months.map(month => month.id));
+    if (safeMonths.length > 0 && visibleMonths.size === 0) {
+      const allMonthIds = new Set(safeMonths.map(month => month?.id).filter(Boolean));
       setVisibleMonths(allMonthIds);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [months.length]);
+  }, [safeMonths.length]);
 
   const loadData = async () => {
     try {
@@ -44,11 +47,13 @@ function FilterableCalendar() {
         getCrops(),
         getMonths()
       ]);
-      setCrops(cropsData);
-      setMonths(monthsData);
+      setCrops(Array.isArray(cropsData) ? cropsData : []);
+      setMonths(Array.isArray(monthsData) ? monthsData : []);
       setError(null);
     } catch (err) {
       setError('Andmete laadimisel tekkis viga: ' + err.message);
+      setCrops([]);
+      setMonths([]);
     } finally {
       setLoading(false);
     }
@@ -69,7 +74,7 @@ function FilterableCalendar() {
 
   // Kõigi kultuuride nähtavaks muutmine
   const showAllCrops = () => {
-    const allCropIds = new Set(crops.map(crop => crop.id));
+    const allCropIds = new Set(safeCrops.map(crop => crop?.id).filter(Boolean));
     setVisibleCrops(allCropIds);
   };
 
@@ -93,7 +98,7 @@ function FilterableCalendar() {
 
   // Kõigi kuude nähtavaks muutmine
   const showAllMonths = () => {
-    const allMonthIds = new Set(months.map(month => month.id));
+    const allMonthIds = new Set(safeMonths.map(month => month?.id).filter(Boolean));
     setVisibleMonths(allMonthIds);
   };
 
@@ -163,21 +168,21 @@ function FilterableCalendar() {
   };
 
   // Otsingu ja filtreerimisega kultuurid
-  const filteredCrops = crops.filter(crop => {
-    const matchesSearch = searchQuery === '' || 
-      crop.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const isVisible = visibleCrops.has(crop.id);
+  const filteredCrops = safeCrops.filter(crop => {
+    const matchesSearch = searchQuery === '' ||
+      (crop?.name && crop.name.toLowerCase().includes(searchQuery.toLowerCase()));
+    const isVisible = visibleCrops.has(crop?.id);
     return matchesSearch && isVisible;
   });
 
   // Filtreeritud kuud (nähtavad kuud), sorteeritud ID järgi
-  const filteredMonths = months
-    .filter(month => visibleMonths.has(month.id))
-    .sort((a, b) => a.id - b.id);
+  const filteredMonths = safeMonths
+    .filter(month => visibleMonths.has(month?.id))
+    .sort((a, b) => (a?.id ?? 0) - (b?.id ?? 0));
 
   // Otsingu jaoks nähtavad kultuurid (filtreerimiseks)
-  const searchableCrops = crops.filter(crop => 
-    searchQuery === '' || crop.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const searchableCrops = safeCrops.filter(crop =>
+    searchQuery === '' || (crop?.name && crop.name.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   if (loading) {
@@ -232,13 +237,13 @@ function FilterableCalendar() {
             <h3>Filtreeri kultuure</h3>
             <div className="filter-checkboxes">
               {searchableCrops.map((crop) => (
-                <label key={crop.id} className="filter-checkbox">
+                <label key={crop?.id} className="filter-checkbox">
                   <input
                     type="checkbox"
-                    checked={visibleCrops.has(crop.id)}
-                    onChange={() => toggleCropVisibility(crop.id)}
+                    checked={visibleCrops.has(crop?.id)}
+                    onChange={() => toggleCropVisibility(crop?.id)}
                   />
-                  <span>{crop.name}</span>
+                  <span>{crop?.name}</span>
                 </label>
               ))}
               {searchableCrops.length === 0 && searchQuery && (
@@ -261,14 +266,14 @@ function FilterableCalendar() {
           <div className="sidebar-section">
             <h3>Filtreeri kuusid</h3>
             <div className="filter-checkboxes">
-              {months.map((month) => (
-                <label key={month.id} className="filter-checkbox">
+              {safeMonths.map((month) => (
+                <label key={month?.id} className="filter-checkbox">
                   <input
                     type="checkbox"
-                    checked={visibleMonths.has(month.id)}
-                    onChange={() => toggleMonthVisibility(month.id)}
+                    checked={visibleMonths.has(month?.id)}
+                    onChange={() => toggleMonthVisibility(month?.id)}
                   />
-                  <span>{month.name}</span>
+                  <span>{month?.name}</span>
                 </label>
               ))}
             </div>
@@ -298,17 +303,17 @@ function FilterableCalendar() {
                 <div className='calendar-header-row calendar-grid-header'>
                   <div className='crop-column-header'>Köögivili</div>
                   <div className='month-header-container'>
-                    {months.map((month) => {
-                      const isHidden = !visibleMonths.has(month.id);
+                    {safeMonths.map((month) => {
+                      const isHidden = !visibleMonths.has(month?.id);
                       return (
                         <button
-                          key={month.id}
+                          key={month?.id}
                           type="button"
                           className={`month-header${isHidden ? ' hidden' : ''}`}
-                          title={isHidden ? `Näita ${month.name}` : `Peida ${month.name}`}
-                          onClick={() => toggleMonthVisibility(month.id)}
+                          title={isHidden ? `Näita ${month?.name}` : `Peida ${month?.name}`}
+                          onClick={() => toggleMonthVisibility(month?.id)}
                         >
-                          {MONTH_SHORT[month.id] ?? month.name}
+                          {MONTH_SHORT[month?.id] ?? month?.name}
                         </button>
                       );
                     })}
@@ -316,14 +321,15 @@ function FilterableCalendar() {
                 </div>
                 {/* Kultuuride read – 12 veergu, iga kuu lahtris ikoonid ühel real */}
                 {filteredCrops.map((crop) => (
-                  <div className='calendar-row' key={crop.id}>
-                    <div className='plant-name'>{crop.name}</div>
+                  <div className='calendar-row' key={crop?.id}>
+                    <div className='plant-name'>{crop?.name}</div>
                     <div className='month-container'>
-                      {months.map((month) => {
-                        const isVisible = visibleMonths.has(month.id);
+                      {safeMonths.map((month) => {
+                        const isVisible = visibleMonths.has(month?.id);
+                        const periods = crop?.periods ?? [];
                         const markersForMonth = isVisible
-                          ? crop.periods
-                              .filter((period) => period.start >= 1 && month.id >= period.start && month.id <= period.end)
+                          ? periods
+                              .filter((period) => period && period.start >= 1 && month?.id >= period.start && month?.id <= period.end)
                               .map((period) => {
                                 const label = LEGEND_ITEMS.find((l) => l.id === period.id)?.label ?? '';
                                 const iconSrc = getIconForPeriod(period.id);

@@ -1,13 +1,70 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import './App.css';
 import ActivityCalendar from './components/ActivityCalendar';
 import FilterableCalendar from './components/FilterableCalendar';
 import ProductList from './components/ProductList';
 
+class ErrorBoundary extends Component {
+  state = { hasError: false, error: null };
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('App error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="app" style={{ padding: '2rem', textAlign: 'center' }}>
+          <h1>Midagi läks valesti</h1>
+          <p style={{ marginTop: '1rem', color: '#64328A' }}>
+            {this.state.error?.message || 'Tundmatu viga'}
+          </p>
+          <button
+            type="button"
+            style={{ marginTop: '1rem', padding: '0.5rem 1rem', cursor: 'pointer' }}
+            onClick={() => this.setState({ hasError: false, error: null })}
+          >
+            Proovi uuesti
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function smoothScrollToElement(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const start = window.scrollY ?? document.documentElement.scrollTop;
+  const end = el.getBoundingClientRect().top + start;
+  const distance = end - start;
+  const duration = 1000;
+  let startTime = null;
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function step(timestamp) {
+    if (startTime == null) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = easeInOutCubic(progress);
+    window.scrollTo(0, start + distance * eased);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
+
 function HomePage() {
   const navigate = useNavigate();
-  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div className="app">
@@ -16,22 +73,22 @@ function HomePage() {
       </header>
 
       <div className="content-grid">
-        <div 
+        <div
           className="content-section card-general"
-          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Img/Test5.png)` }}
+          style={{ backgroundImage: `url(${process.env.PUBLIC_URL || ''}/Img/Test5.png)` }}
         >
           <div className="card-general-content">
             <h2>Üldine</h2>
             <p className="card-subtitle">Kogu informatsioon ühes kohas!</p>
-            <button className="card-button" onClick={() => navigate('/kalender')}>
+            <button className="card-button" onClick={() => smoothScrollToElement('calendar')}>
               Vaata kogu külvikalendrit
             </button>
           </div>
         </div>
 
-        <div 
+        <div
           className="content-section card-personal"
-          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Img/Test6.png)` }}
+          style={{ backgroundImage: `url(${process.env.PUBLIC_URL || ''}/Img/Test6.png)` }}
         >
           <div className="card-personal-content">
             <h2>Personaalne</h2>
@@ -54,22 +111,6 @@ function HomePage() {
             et taimed saaksid kasvada võimalikult soodsates oludes.
           </p>
           
-          <div className={`expandable-content ${isExpanded ? 'expanded' : ''}`}>
-            <p>
-              Külvikalendri <b>põhieesmärk on aidata aednikul valida õige aeg külviks</b>, 
-              sest liiga vara külvatud taimed võivad kannatada külma käes ja liiga hilja 
-              külvatud taimed ei pruugi jõuda enne sügist saaki anda.
-              Paljudes külvikalendrites on eraldi välja toodud, millal külvata seemned toas ette, 
-              millal istutada taimed kasvuhoonesse ning millal külvata või istutada otse avamaale.
-            </p>
-          </div>
-          
-          <button 
-            className="read-more-btn" 
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            {isExpanded ? 'Näita vähem' : 'Näita rohkem'}
-          </button>
         </div>
       </div>
 
@@ -77,7 +118,7 @@ function HomePage() {
         <ProductList />
       </div>
        
-      <div className="content-section">
+      <div id="calendar" className="content-section">
         <ActivityCalendar />
       </div>
     </div>
@@ -86,12 +127,15 @@ function HomePage() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/kalender" element={<FilterableCalendar />} />
-      </Routes>
-    </Router>
+    <ErrorBoundary>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/kalender" element={<FilterableCalendar />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Router>
+    </ErrorBoundary>
   );
 }
 
