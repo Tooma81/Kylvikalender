@@ -1,9 +1,16 @@
 import React from 'react';
-import './FilterableCalendar.css';
 import seeds from '../assets/seeds.png';
 
 const CalendarRow = ({ crop, months }) => {
   const [rowExpanded, setRowExpanded] = React.useState(false);
+
+  useEffect(() => {
+  if (isMobile) {
+    import('./mobile.css');
+  } else {
+    import('./FilterableCalendar.css');
+  }
+}, [isMobile]);
 
   return (
     <div className='calendar-row-container'>
