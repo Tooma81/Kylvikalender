@@ -6,6 +6,7 @@ function ActivityCalendar() {
   const [crops, setCrops] = useState([]);
   const [months, setMonths] = useState([]);
   const [monthFilter, setMonthFilter] = useState(0)
+  const [rowExpanded, setRowExpanded] = useState(false)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -34,11 +35,21 @@ function ActivityCalendar() {
     try {
       monthFilter === id ? setMonthFilter(0) : setMonthFilter(id);
     } catch (err) {
-      setError('Andmete laadimisel tekkis viga: ' + err.message);
+      setError('Filtri muutmisel tekkis viga: ' + err.message);
     } finally {
       loadData();
     }
   };
+
+  const toggleRowExpanded = async () => {
+    try {
+      rowExpanded ? setRowExpanded(false) : setRowExpanded(true);
+    } catch (err) {
+      setError('Andmete laadimisel tekkis viga: ' + err.message);
+    } finally {
+      loadData();
+    }
+  }
 
   return (
     <div className="activity-calendar">
@@ -46,6 +57,7 @@ function ActivityCalendar() {
       <div className='calendar-search'></div>
       <div className='calendar'>
         <div className='month-filter'>
+          <h1 style={{fontSize: 28}}>Filtreeri kuu järgi</h1>
           {months.map((month) => (
             <div
               key={month.id}
@@ -66,32 +78,38 @@ function ActivityCalendar() {
         })
         .map((crop) => (
           <div className='calendar-row' key={crop.id}>
-          <div className='plant-name'>{crop.name}</div>
-            <div className='month-container'>
-              {months.map((month) => (
-                <div 
-                  key={month.id} 
-                  className={`month-box ${month.season}`}
-                  title={month.name} // Näitab kuu nime peale liikudes
-                >
-                  {/* Soovi korral võid siia sisse panna ka teksti: {month.id} */}
-                </div>
-              ))}
-              {crop.periods
-                .filter((period) => period.start >= 1)
-                .map((period) =>
-                  <div
-                    key={period.id}
-                    className={`period-marker ${period.id}`}
-                    style={{
-                      '--start': period.start,
-                      '--end': period.end
-                    }}
-                  >
-                    {period.symbol}
-                  </div>
-              )}
+            <div 
+              className={`row-toggle prevent-select ${rowExpanded ? 'open' : ''}`}
+              onClick={() => toggleRowExpanded()}
+            >
+              ⌵
             </div>
+            <div className='plant-name'>{crop.name}</div>
+              <div className='month-container'>
+                {months.map((month) => (
+                  <div 
+                    key={month.id} 
+                    className={`month-box ${month.season}`}
+                    title={month.name} // Näitab kuu nime peale liikudes
+                  >
+                    {/* Soovi korral võid siia sisse panna ka teksti: {month.id} */}
+                  </div>
+                ))}
+                {crop.periods
+                  .filter((period) => period.start >= 1)
+                  .map((period) =>
+                    <div
+                      key={period.id}
+                      className={`period-marker ${period.id}`}
+                      style={{
+                        '--start': period.start,
+                        '--end': period.end
+                      }}
+                    >
+                      {period.symbol}
+                    </div>
+                )}
+              </div>
         </div>
         ))}
       </div>
