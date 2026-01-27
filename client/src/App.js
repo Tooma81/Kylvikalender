@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import ActivityCalendar from './components/ActivityCalendar';
+import FilterableCalendar from './components/FilterableCalendar';
 import ProductList from './components/ProductList';
 import LandingPage from './components/LandingPage';
 import FilterableCalendar from './components/FilterableCalendar';
 
 function MainContent() {
   const [isExpanded, setIsExpanded] = useState(false);
+
+function HomePage() {
+  const navigate = useNavigate();
 
   return (
     <div className="app">
@@ -23,7 +27,7 @@ function MainContent() {
           <div className="card-general-content">
             <h2>Üldine</h2>
             <p className="card-subtitle">Kogu informatsioon ühes kohas!</p>
-            <button className="card-button" onClick={() => window.location.href='/kalender'}>
+            <button className="card-button" onClick={() => navigate('/kalender')}>
               Vaata kogu külvikalendrit
             </button>
           </div>
@@ -36,7 +40,9 @@ function MainContent() {
           <div className="card-personal-content">
             <h2>Personaalne</h2>
             <p className="card-subtitle">Loo endale meelepärane kalender ning prindi see!</p>
-            <button className="card-button">Minu külvikalender</button>
+            <button className="card-button" onClick={() => navigate('/kalender')}>
+              Minu külvikalender
+            </button>
           </div>
         </div>
       </div>
@@ -86,7 +92,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainContent />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/kalender" element={<FilterableCalendar />} />
       </Routes>
     </Router>

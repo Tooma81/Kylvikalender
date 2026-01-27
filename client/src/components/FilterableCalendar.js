@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FilterableCalendar.css';
 import { getCrops, getMonths } from '../services/api';
+import { ICON_BASE, LEGEND_ITEMS, MONTH_SHORT, getIconForPeriod } from '../utils/calendarLegend';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -198,7 +199,11 @@ function FilterableCalendar() {
   );
 
   if (loading) {
-    return <div className="loading">Laadimine...</div>;
+    return (
+      <div className="loading">
+        Laadimine...
+      </div>
+    );
   }
 
   if (error) {
@@ -290,29 +295,37 @@ function FilterableCalendar() {
 
         <main className="calendar-main">
           <div className="calendar-container">
+            {/* Legend ikoonidega - alati nähtav */}
+            <div className='calendar-legend'>
+              {LEGEND_ITEMS.map((item) => (
+                <div key={item.id} className='legend-item'>
+                  <img src={ICON_BASE + item.icon} alt={item.label} className='legend-icon' />
+                  <span className='legend-label'>{item.label}</span>
+                </div>
+              ))}
+            </div>
             {filteredCrops.length === 0 ? (
               <div className="no-crops-message">
                 <p>Valitud kultuure ei ole nähtaval.</p>
                 <p>Palun vali vähemalt üks kultuur filtreerimisribalt.</p>
               </div>
             ) : (
-              <div className='calendar'>
-                {/* Kuude päised */}
-                <div className='calendar-header-row'>
-                  <div className='plant-name-header'></div>
+              <>
+                <div className='calendar'>
+                {/* Kuude päised - klikitavad */}
+                <div className='calendar-header-row calendar-grid-header'>
+                  <div className='crop-column-header'>Köögivili</div>
                   <div className='month-header-container'>
-                    {months
-                      .sort((a, b) => a.id - b.id)
-                      .map((month) => (
-                        <div 
-                          key={month.id} 
-                          className={`month-header ${month.season} ${visibleMonths.has(month.id) ? 'visible' : 'hidden'}`}
-                          title={visibleMonths.has(month.id) ? `Peida ${month.name}` : `Näita ${month.name}`}
-                          onClick={() => toggleMonthVisibility(month.id)}
-                        >
-                          {month.name}
-                        </div>
-                      ))}
+                    {filteredMonths.map((month) => (
+                      <div
+                        key={month.id}
+                        className='month-header'
+                        title={`Peida ${month.name}`}
+                        onClick={() => toggleMonthVisibility(month.id)}
+                      >
+                        {MONTH_SHORT[month.id] ?? month.name}
+                      </div>
+                    ))}
                   </div>
                 </div>
                 {/* Kultuuride read */}
@@ -320,65 +333,43 @@ function FilterableCalendar() {
                   <div className='calendar-row' key={crop.id}>
                     <div className='plant-name'>{crop.name}</div>
                     <div className='month-container'>
-                      {months
-                        .sort((a, b) => a.id - b.id)
-                        .filter(month => visibleMonths.has(month.id))
-                        .map((month) => (
-                          <div 
-                            key={month.id} 
-                            className={`month-box ${month.season}`}
-                            title={month.name}
-                          >
-                          </div>
-                        ))}
+                      {filteredMonths.map((month) => (
+                        <div key={month.id} className='month-box' title={month.name} />
+                      ))}
                       {crop.periods
                         .filter((period) => period.start >= 1)
-                        .map((period) => {
-                          // Arvuta uus algus- ja lõpppositsioon filtreeritud kuude põhjal
+                        .flatMap((period) => {
                           const visibleMonthIds = Array.from(visibleMonths).sort((a, b) => a - b);
-                          
-                          // Leia perioodi algus- ja lõppkuu indeksid nähtavate kuude seas
-                          let startIndex = -1;
-                          let endIndex = -1;
-                          
-                          for (let i = 0; i < visibleMonthIds.length; i++) {
-                            if (visibleMonthIds[i] === period.start) {
-                              startIndex = i;
-                            }
-                            if (visibleMonthIds[i] === period.end) {
-                              endIndex = i;
-                            }
-                          }
-                          
-                          // Kui perioodi algus või lõpp ei ole nähtavate kuude seas, jäta see välja
-                          if (startIndex === -1 || endIndex === -1) return null;
-                          
-                          // Kontrolli, kas kõik kuud perioodi alguse ja lõpu vahel on nähtavad
-                          const periodMonths = [];
+                          const label = LEGEND_ITEMS.find((l) => l.id === period.id)?.label ?? '';
+                          const iconSrc = getIconForPeriod(period.id);
+                          const markers = [];
                           for (let monthId = period.start; monthId <= period.end; monthId++) {
-                            periodMonths.push(monthId);
+                            if (!visibleMonths.has(monthId)) continue;
+                            const idx = visibleMonthIds.indexOf(monthId);
+                            if (idx === -1) continue;
+                            const pos = idx + 1;
+                            markers.push(
+                              <div
+                                key={`${crop.id}-${period.id}-${monthId}`}
+                                className={`period-marker ${period.id}`}
+                                style={{ '--start': pos, '--end': pos }}
+                                title={label}
+                              >
+                                {iconSrc ? (
+                                  <img src={iconSrc} alt={label} className="period-marker-icon" />
+                                ) : (
+                                  period.symbol
+                                )}
+                              </div>
+                            );
                           }
-                          
-                          const allPeriodMonthsVisible = periodMonths.every(monthId => visibleMonths.has(monthId));
-                          if (!allPeriodMonthsVisible) return null;
-                          
-                          return (
-                            <div
-                              key={period.id}
-                              className={`period-marker ${period.id}`}
-                              style={{
-                                '--start': startIndex + 1,
-                                '--end': endIndex + 1
-                              }}
-                            >
-                              {period.symbol}
-                            </div>
-                          );
+                          return markers;
                         })}
                     </div>
                   </div>
                 ))}
               </div>
+              </>
             )}
           </div>
         </main>
