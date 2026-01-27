@@ -12,9 +12,9 @@ function FilterableCalendar() {
   const [months, setMonths] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [visibleCrops, setVisibleCrops] = useState(new Set());
-  const [visibleMonths, setVisibleMonths] = useState(new Set());
-  const [searchQuery, setSearchQuery] = useState('');
+  const [visibleCrops, setVisibleCrops] = useState(new Set()); // Hoitakse nähtavate kultuuride ID-sid
+  const [visibleMonths, setVisibleMonths] = useState(new Set()); // Hoitakse nähtavate kuude ID-sid
+  const [searchQuery, setSearchQuery] = useState(''); // Otsingu päring
 
   useEffect(() => {
     loadData();

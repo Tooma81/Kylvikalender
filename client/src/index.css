@@ -72,17 +72,17 @@
 /* CSS Variables - Color Palette */
 :root {
   /* Brand Colors (Tunnusvärvid) */
-  --color-primary-purple: #5E3589;
+  --color-primary-purple: #64328A;
   --color-primary-white: #ffffff;
-  --color-light-cream: #FDF0E1;
-  --color-soft-orange: #E4A06B;
-  --color-light-green: #BFDCCB;
+  --color-light-cream: #FEEFDE;
+  --color-soft-orange: #EDAC66;
+  --color-light-green: #C0D5C1;
   --color-text-black: #000000;
   
   /* Additional and Accent Colors (Lisa- ja aktsentvärvid) */
-  --color-golden-brown: #BC903D;
-  --color-light-blue: #A8DDEC;
-  --color-light-grey: #EBEBEB;
+  --color-golden-brown: #DAA33C;
+  --color-light-blue: #90D4F6;
+  --color-light-grey: #E6E6E5;
   --color-black: #000000;
   
   /* Typography */

@@ -260,151 +260,75 @@
 .calendar {
   background: #fff;
   --box-height: 100px;
-  --box-width: 60px;
+  --box-width: 80px;
+  padding: 20px;
 }
 
-.calendar-header-row.calendar-grid-header {
-  display: flex;
-  align-items: stretch;
-  margin-bottom: 0;
-  padding: 0;
-}
-
-.crop-column-header {
-  width: 30%;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-primary-purple);
-  color: #fff;
-  font-family: var(--font-primary);
-  font-size: 1rem;
+.calendar-title {
+  color: #000 !important;
+  font-size: 3rem;
   font-weight: 700;
-  padding: 10px 12px;
-  border: none;
-  border-radius: 8px 0 0 0;
-}
-
-.month-header-container {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  min-height: 44px;
-}
-
-.month-header {
-  flex: 1;
-  min-width: var(--box-width);
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-primary);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #fff;
-  background: var(--color-primary-purple);
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-  user-select: none;
-}
-
-.month-header:hover {
-  opacity: 0.9;
-}
-
-.month-header.hidden {
-  opacity: 0.35;
-  background: #b0a0c0;
-  text-decoration: line-through;
-  color: #fff;
-}
-
-.month-header.hidden:hover {
-  opacity: 0.5;
 }
 
 .calendar-row {
   display: flex;
-  align-items: stretch;
-  padding: 0;
-  border-bottom: 1px solid #e8e8e8;
-}
-
-.calendar-row:last-child {
-  border-bottom: none;
+  align-items: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+  box-shadow: 2px 2px 10px #0000004f;
 }
 
 .plant-name {
-  width: 30%;
-  min-height: var(--box-height);
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  color: #333;
-  font-family: var(--font-primary);
-  font-size: 1.05rem;
+  color: #000 !important;
+  font-size: 2rem;
   font-weight: 500;
-  background: #fff;
-  border: none;
+  width: 30%
 }
 
 .month-container {
-  flex: 1;
   height: var(--box-height);
   display: flex;
   flex-direction: row;
-  background: #fff;
-}
-
-/* Iga kuu lahtri wrappear – kasti taust + ikoonide rida */
-.month-cell {
-  flex: 1;
-  min-width: var(--box-width);
-  height: var(--box-height);
   position: relative;
   background: #fff;
 }
 
 .month-box {
-  position: absolute;
-  inset: 0;
+  flex: 1;
+  min-width: var(--box-width);
+  height: var(--box-height);
   background: #fff;
   border: none;
 }
 
-/* Ikoonide rida kuu lahtris – ühel horisontaalsel real */
-.month-markers {
+/* Kasvuperioodide markerid – iga kuu kohta eraldi ikoon, ilma piirjoonteta */
+.period-marker {
   position: absolute;
-  inset: 0;
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 2px 4px;
+  width: var(--box-width);
+  height: calc(var(--box-height) / 3);
+  margin-left: calc((var(--start) - 1) * var(--box-width));
+  padding: 0 2px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   z-index: 2;
 }
 
-.period-marker {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background: transparent;
-  border: none;
-  padding: 0;
-  border-radius: 0;
-}
+.ettekasvatus { margin-top: 2px; }
+.otsekulv { margin-top: calc(var(--box-height) / 3 + 2px); }
+.kasvuhoonesse { margin-top: calc(var(--box-height) / 3 * 2 + 2px); }
+.oue { margin-top: calc(var(--box-height) / 3 * 2 + 2px); }
 
 .period-marker-icon {
   width: auto;
-  height: calc(var(--box-height) / 2 - 8px);
-  max-height: 36px;
-  max-width: 28px;
+  height: calc(var(--box-height) / 3 - 10px);
+  max-width: 100%;
   object-fit: contain;
 }
 
