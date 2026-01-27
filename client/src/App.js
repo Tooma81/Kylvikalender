@@ -5,10 +5,6 @@ import ActivityCalendar from './components/ActivityCalendar';
 import FilterableCalendar from './components/FilterableCalendar';
 import ProductList from './components/ProductList';
 import LandingPage from './components/LandingPage';
-import FilterableCalendar from './components/FilterableCalendar';
-
-function MainContent() {
-  const [isExpanded, setIsExpanded] = useState(false);
 
 function HomePage() {
   const navigate = useNavigate();
@@ -58,22 +54,6 @@ function HomePage() {
             et taimed saaksid kasvada võimalikult soodsates oludes.
           </p>
           
-          <div className={`expandable-content ${isExpanded ? 'expanded' : ''}`}>
-            <p>
-              Külvikalendri <b>põhieesmärk on aidata aednikul valida õige aeg külviks</b>, 
-              sest liiga vara külvatud taimed võivad kannatada külma käes ja liiga hilja 
-              külvatud taimed ei pruugi jõuda enne sügist saaki anda.
-              Paljudes külvikalendrites on eraldi välja toodud, millal külvata seemned toas ette, 
-              millal istutada taimed kasvuhoonesse ning millal külvata või istutada otse avamaale.
-            </p>
-          </div>
-          
-          <button 
-            className="read-more-btn" 
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            {isExpanded ? 'Näita vähem' : 'Näita rohkem'}
-          </button>
         </div>
       </div>
 
