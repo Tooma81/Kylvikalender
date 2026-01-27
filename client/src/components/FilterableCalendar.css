@@ -216,173 +216,147 @@
   opacity: 0.8;
 }
 
-.calendar-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px 32px;
-  align-items: center;
-  padding: 12px 0 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #e8e8e8;
-  font-family: var(--font-primary);
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.legend-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
-
-.legend-label {
-  color: #444;
-  font-size: 0.9rem;
-  font-weight: 400;
-}
-
-.calendar {
+.activity-calendar {
   background: #fff;
   --box-height: 100px;
-  --box-width: 60px;
+  --box-width: 80px;
+  padding: 20px;
 }
 
-.calendar-header-row.calendar-grid-header {
-  display: flex;
-  align-items: stretch;
-  margin-bottom: 0;
-  padding: 0;
-}
-
-.crop-column-header {
-  width: 30%;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-primary-purple);
-  color: #fff;
-  font-family: var(--font-primary);
-  font-size: 1rem;
+.calendar-title {
+  color: #000 !important;
+  font-size: 3rem;
   font-weight: 700;
-  padding: 10px 12px;
-  border: none;
-  border-radius: 8px 0 0 0;
-}
-
-.month-header-container {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  min-height: 44px;
-}
-
-.month-header {
-  flex: 1;
-  min-width: var(--box-width);
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-primary);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #fff;
-  background: var(--color-primary-purple);
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-  user-select: none;
-}
-
-.month-header:hover {
-  opacity: 0.9;
-}
-
-.month-header.hidden {
-  opacity: 0.35;
-  background: #b0a0c0;
-  text-decoration: line-through;
-  color: #fff;
-}
-
-.month-header.hidden:hover {
-  opacity: 0.5;
 }
 
 .calendar-row {
   display: flex;
-  align-items: stretch;
-  padding: 0;
-  border-bottom: 1px solid #e8e8e8;
-}
-
-.calendar-row:last-child {
-  border-bottom: none;
+  align-items: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+  box-shadow: 2px 2px 10px #0000004f;
 }
 
 .plant-name {
-  width: 30%;
-  min-height: var(--box-height);
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  color: #333;
-  font-family: var(--font-primary);
-  font-size: 1.05rem;
+  color: #000 !important;
+  font-size: 2rem;
   font-weight: 500;
-  background: #fff;
-  border: none;
+  width: 30%
 }
 
 .month-container {
-  flex: 1;
   height: var(--box-height);
   display: flex;
   flex-direction: row;
-  position: relative;
-  background: #fff;
+  border-radius: 8px;
 }
 
 .month-box {
-  flex: 1;
-  min-width: var(--box-width);
   height: var(--box-height);
-  background: #fff;
-  border: none;
+  width: var(--box-width);
+  border: #EDAC66 solid 1px;
 }
 
-/* Kasvuperioodide markerid – iga kuu kohta eraldi ikoon, ilma piirjoonteta */
-.period-marker {
-  position: absolute;
+/* Kuude filter */
+.month-filter {
+  display: flex;
+  justify-content: flex-end;
+  right: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.month-filter-btn {
+  color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--box-width);
+  border-radius: 8px;
+  font-size: 20px;
+  width: 70px;
+  height: 48px;
+  margin: 0 5px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.month-filter-btn:hover {
+  font-size: 21px;
+}
+
+.month-filter-btn.selected {
+  border: #64328A solid 2px;
+  font-size: 21px;
+}
+
+/* Nuppude tausta värvid */
+.month-filter-btn.winter {background-color: #90D4F6}
+.month-filter-btn.spring {background-color: #C0D5C1}
+.month-filter-btn.summer {background-color: #FEEFDE}
+.month-filter-btn.autumn {background-color: #EDAC66}
+
+.month-filter-btn.winter:hover, .month-filter-btn.winter.selected {background-color: #BDE9FF}
+.month-filter-btn.spring:hover, .month-filter-btn.spring.selected {background-color: #DAE9DB}
+.month-filter-btn.summer:hover, .month-filter-btn.summer.selected {background-color: #FFF8F0}
+.month-filter-btn.autumn:hover, .month-filter-btn.autumn.selected {background-color: #FFD19F}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+/* Kalendri tausta värvid */
+.winter {background-color: rgba(144, 212, 246, 0.1)}
+.spring {background-color: rgba(192, 213, 193, 0.2)}
+.summer {background-color: rgba(254, 239, 222, 0.2)}
+.autumn {background-color: rgba(237, 172, 102, 0.15)}
+
+/* Ümarad servad esimesele ja viimasele kastile */
+.month-box:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.month-box:nth-child(12) {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.row-toggle {
+  font-size: 30px;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+.row-toggle.open {
+  transform: rotate(180deg);
+}
+
+/* Kasvuperioodide markerid */
+.period-marker {
+  position: absolute;
+  color: #000;
+  font-size: calc(var(--box-height) * 0.20);
+  line-height: calc(var(--box-height) * 0.3);
+  width: calc(var(--box-width) * (var(--end) - var(--start) + 1)); /* Markeri laius arvutatakse vastavalt perioodi pikkusele */
   height: calc(var(--box-height) / 3);
-  margin-left: calc((var(--start) - 1) * var(--box-width));
-  padding: 0 2px;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  z-index: 2;
+  margin-left: calc((var(--start) - 1) * var(--box-width)); /* Markeri algus vastavalt kuule */
+  padding: 0 5px;
+  background-color: #C0D5C1;
+  border-radius: 14px;
+  z-index: 999;
 }
 
-.ettekasvatus { margin-top: 2px; }
-.otsekulv { margin-top: calc(var(--box-height) / 3 + 2px); }
-.kasvuhoonesse { margin-top: calc(var(--box-height) / 3 * 2 + 2px); }
-.oue { margin-top: calc(var(--box-height) / 3 * 2 + 2px); }
+/* Markerite värvid ja positsoonid */
+.ettekasvatus {background-color: #C0D5C1;}
+.otsekulv {background-color: #90D4F6; margin-top: calc(var(--box-height) / 3);}
+.kasvuhoonesse {background-color: #64328A; margin-top: calc(var(--box-height) / 3 * 2); color: #fff;}
+.oue {background-color: #EDAC66; margin-top: calc(var(--box-height) / 3 * 2);}
 
-.period-marker-icon {
-  width: auto;
-  height: calc(var(--box-height) / 3 - 10px);
-  max-width: 100%;
-  object-fit: contain;
-}
+
 
 .loading, .error {
   padding: 20px;
