@@ -5,6 +5,7 @@ import { getCrops, getMonths } from '../services/api';
 import { ICON_BASE, LEGEND_ITEMS, MONTH_SHORT, getIconForPeriod } from '../utils/calendarLegend';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import ProductList from './ProductList';
 
 function FilterableCalendar() {
   const navigate = useNavigate();
@@ -360,6 +361,10 @@ function FilterableCalendar() {
             )}
           </div>
         </main>
+      </div>
+
+      <div className="content-section product-list-wrapper">
+        <ProductList />
       </div>
     </div>
   );
