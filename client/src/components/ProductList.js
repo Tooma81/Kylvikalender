@@ -25,14 +25,13 @@ const ProductList = () => {
         .from('products')
         .select('*')
         .limit(10); // Võtame näiteks 10 toodet
-      if (!error) setProducts(Array.isArray(data) ? data : []);
+      if (!error) setProducts(data);
     };
     fetchProducts();
   }, []);
 
   const scroll = (direction) => {
     const { current } = scrollRef;
-    if (!current) return;
     if (direction === 'left') {
       current.scrollBy({ left: -300, behavior: 'smooth' });
     } else {
@@ -57,7 +56,7 @@ return (
       <button className="nav-btn left" onClick={() => scroll('left')}></button>
       
 <div className="product-grid" ref={scrollRef}>
-  {(products || []).map((product) => {
+  {products.map((product) => {
     // Veendume, et hinnad on olemas, et vältida arvutusvigu
     const price = product.price || 0;
     const memberPrice = product.member_price || 0;
@@ -67,9 +66,9 @@ return (
     const discountAmount = (price - memberPrice).toFixed(2);
 
     return (
-      <a key={product?.id} href={product?.product_url || '#'} className="product-card" target="_blank" rel="noopener noreferrer">
+      <a key={product.id} href={product.product_url} className="product-card" target="_blank" rel="noopener noreferrer">
         <div className="image-container">
-          <img src={product?.image_url} alt={product?.name ?? ''} />
+          <img src={product.image_url} alt={product.name} />
           {hasDiscount && (
             <div className="discount-badge">
               -{Math.round(((price - memberPrice) / price) * 100)}%
@@ -77,7 +76,7 @@ return (
           )}
         </div>
         
-        <h3 className="product-title">{cleanProductName(product?.name)}</h3>
+        <h3 className="product-title">{cleanProductName(product.name)}</h3>
         
         <div className="price-info">
           {hasDiscount ? (

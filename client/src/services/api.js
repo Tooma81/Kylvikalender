@@ -9,16 +9,16 @@ const api = axios.create({
   },
 });
 
-// Get all crops (always return array to avoid render crashes)
+// Get all crops
 export const getCrops = async () => {
   const response = await api.get('/crops');
-  return Array.isArray(response.data) ? response.data : [];
+  return response.data;
 };
 
-// Get month data (always return array to avoid render crashes)
+// Get month data
 export const getMonths = async () => {
   const response = await api.get('/months');
-  return Array.isArray(response.data) ? response.data : [];
+  return response.data;
 };
 
 // Get crop by ID
