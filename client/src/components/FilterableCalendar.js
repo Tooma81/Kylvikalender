@@ -125,8 +125,12 @@ function FilterableCalendar() {
         headerElement.style.display = 'none';
       }
 
-      // Oota väike aeg, et stiilid rakenduksid
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Lisa PDF-ekspordi klass, et kalender oleks kompaktsem (mahub ühele A4-le)
+      const pageElement = document.querySelector('.filterable-calendar-page');
+      if (pageElement) {
+        pageElement.classList.add('pdf-export');
+      }
+      await new Promise(resolve => setTimeout(resolve, 150));
 
       const canvas = await html2canvas(calendarElement, {
         scale: 2,
@@ -135,6 +139,9 @@ function FilterableCalendar() {
         backgroundColor: '#ffffff'
       });
 
+      if (pageElement) {
+        pageElement.classList.remove('pdf-export');
+      }
       // Taasta külgriba ja päis
       if (sidebarElement) {
         sidebarElement.style.display = sidebarOriginalDisplay || '';
@@ -144,39 +151,27 @@ function FilterableCalendar() {
       }
 
       const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('landscape', 'mm', 'a4');
-      
-      const imgWidth = 297; // A4 landscape width in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      
-      // Kui pilt on liiga kõrge, jagame selle lehtedeks
-      let heightLeft = imgHeight;
-      let position = 0;
+      const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
 
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= 210; // A4 height in mm
+      // A4 landscape: 297 mm laius, 210 mm kõrgus – kogu info ühele lehele, vasak ülanurk fikseeritud
+      const pageWidthMm = 297;
+      const pageHeightMm = 210;
+      const scaleMmPerPx = Math.max(pageWidthMm / canvas.width, pageHeightMm / canvas.height);
+      const imgWidthMm = canvas.width * scaleMmPerPx;
+      const imgHeightMm = canvas.height * scaleMmPerPx;
+      const xMm = 0;
+      const yMm = 0;
 
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= 210;
-      }
-
+      pdf.addImage(imgData, 'PNG', xMm, yMm, imgWidthMm, imgHeightMm);
       pdf.save('kylvikalender.pdf');
     } catch (err) {
       console.error('PDF genereerimise viga:', err);
       alert('PDF genereerimisel tekkis viga: ' + err.message);
-      
-      // Taasta külgriba ja päis vea korral
+      document.querySelector('.filterable-calendar-page')?.classList.remove('pdf-export');
       const sidebarElement = document.querySelector('.calendar-sidebar');
       const headerElement = document.querySelector('.calendar-header');
-      if (sidebarElement) {
-        sidebarElement.style.display = '';
-      }
-      if (headerElement) {
-        headerElement.style.display = '';
-      }
+      if (sidebarElement) sidebarElement.style.display = '';
+      if (headerElement) headerElement.style.display = '';
     }
   };
 
@@ -328,31 +323,21 @@ function FilterableCalendar() {
                     ))}
                   </div>
                 </div>
-                {/* Kultuuride read */}
+                {/* Kultuuride read – iga kuu lahtris ikoonid ühel real */}
                 {filteredCrops.map((crop) => (
                   <div className='calendar-row' key={crop.id}>
                     <div className='plant-name'>{crop.name}</div>
                     <div className='month-container'>
-                      {filteredMonths.map((month) => (
-                        <div key={month.id} className='month-box' title={month.name} />
-                      ))}
-                      {crop.periods
-                        .filter((period) => period.start >= 1)
-                        .flatMap((period) => {
-                          const visibleMonthIds = Array.from(visibleMonths).sort((a, b) => a - b);
-                          const label = LEGEND_ITEMS.find((l) => l.id === period.id)?.label ?? '';
-                          const iconSrc = getIconForPeriod(period.id);
-                          const markers = [];
-                          for (let monthId = period.start; monthId <= period.end; monthId++) {
-                            if (!visibleMonths.has(monthId)) continue;
-                            const idx = visibleMonthIds.indexOf(monthId);
-                            if (idx === -1) continue;
-                            const pos = idx + 1;
-                            markers.push(
+                      {filteredMonths.map((month) => {
+                        const markersForMonth = crop.periods
+                          .filter((period) => period.start >= 1 && month.id >= period.start && month.id <= period.end)
+                          .map((period) => {
+                            const label = LEGEND_ITEMS.find((l) => l.id === period.id)?.label ?? '';
+                            const iconSrc = getIconForPeriod(period.id);
+                            return (
                               <div
-                                key={`${crop.id}-${period.id}-${monthId}`}
+                                key={`${crop.id}-${period.id}-${month.id}`}
                                 className={`period-marker ${period.id}`}
-                                style={{ '--start': pos, '--end': pos }}
                                 title={label}
                               >
                                 {iconSrc ? (
@@ -362,9 +347,16 @@ function FilterableCalendar() {
                                 )}
                               </div>
                             );
-                          }
-                          return markers;
-                        })}
+                          });
+                        return (
+                          <div key={month.id} className='month-cell' title={month.name}>
+                            <div className='month-box' />
+                            <div className='month-markers'>
+                              {markersForMonth}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 ))}
