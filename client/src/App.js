@@ -5,27 +5,7 @@ import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 import FilterableCalendar from './components/FilterableCalendar';
 
-<<<<<<< HEAD
-const Breadcrumbs = () => {
-  const location = useLocation();
-  // Kui tee algab /kalender, siis oleme sisevaates
-  const isPersonalCalendar = location.pathname.startsWith('/kalender');
 
-  return (
-    <div className="breadcrumbs-wrapper">
-      <div className="container">
-        <nav className="breadcrumbs">
-          <Link to="/">Avaleht</Link>
-          <span className="separator">❯</span>
-          <Link to="/" className={!isPersonalCalendar ? 'active' : ''}>Külvikalender</Link>
-          {isPersonalCalendar && (
-            <>
-              <span className="separator">❯</span>
-              <span className="active">Minu külvikalender</span>
-            </>
-          )}
-        </nav>
-=======
 function smoothScrollToElement(id) {
   const el = document.getElementById(id);
   if (!el) return;
