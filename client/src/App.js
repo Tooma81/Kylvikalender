@@ -1,80 +1,46 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
 import './App.css';
-import ActivityCalendar from './components/ActivityCalendar';
-import FilterableCalendar from './components/FilterableCalendar';
-import ProductList from './components/ProductList';
+import Header from './components/Header';
 import LandingPage from './components/LandingPage';
+import FilterableCalendar from './components/FilterableCalendar';
 
-function HomePage() {
-  const navigate = useNavigate();
+const Breadcrumbs = () => {
+  const location = useLocation();
+  // Kui tee algab /kalender, siis oleme sisevaates
+  const isPersonalCalendar = location.pathname.startsWith('/kalender');
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>Külvikalender</h1>
-      </header>
-
-      <div className="content-grid">
-        <div 
-          className="content-section card-general"
-          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Img/Test5.png)` }}
-        >
-          <div className="card-general-content">
-            <h2>Üldine</h2>
-            <p className="card-subtitle">Kogu informatsioon ühes kohas!</p>
-            <button className="card-button" onClick={() => navigate('/kalender')}>
-              Vaata kogu külvikalendrit
-            </button>
-          </div>
-        </div>
-
-        <div 
-          className="content-section card-personal"
-          style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Img/Test6.png)` }}
-        >
-          <div className="card-personal-content">
-            <h2>Personaalne</h2>
-            <p className="card-subtitle">Loo endale meelepärane kalender ning prindi see!</p>
-            <button className="card-button" onClick={() => navigate('/kalender')}>
-              Minu külvikalender
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="info-section">
-        <h2>Mis on külvikalender?</h2>
-        <div className="info-text-container">
-          <p>
-            <b>Külvikalender on juhend või ajakava</b>, mis aitab planeerida aiatöid
-            kogu kasvuperioodi jooksul. See näitab, millal on kõige sobivam aeg erinevaid
-            taimi külvata, ette kasvatada, istutada, ümber istutada ja saaki koristada. 
-            Külvikalender arvestab taimede kasvuvajadusi ning kohalikke ilmastiku- ja kliimatingimusi, 
-            et taimed saaksid kasvada võimalikult soodsates oludes.
-          </p>
-          
-        </div>
-      </div>
-
-      <div className="content-section product-list-wrapper">
-        <ProductList />
-      </div>
-       
-      <div className="content-section">
-        <ActivityCalendar />
+    <div className="breadcrumbs-wrapper">
+      <div className="container">
+        <nav className="breadcrumbs">
+          <Link to="/">Avaleht</Link>
+          <span className="separator">❯</span>
+          <Link to="/" className={!isPersonalCalendar ? 'active' : ''}>Külvikalender</Link>
+          {isPersonalCalendar && (
+            <>
+              <span className="separator">❯</span>
+              <span className="active">Minu külvikalender</span>
+            </>
+          )}
+        </nav>
       </div>
     </div>
   );
-}
+};
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/kalender" element={<FilterableCalendar />} />
-      </Routes>
+      <div className="app-wrapper">
+        <Header />
+        <Breadcrumbs />
+        <Routes>
+          {/* Kasutame LandingPage komponenti, et mitte hoida kogu sisu App.js-is */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/kalender" element={<FilterableCalendar />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

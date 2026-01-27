@@ -1,0 +1,78 @@
+.gardest-static-header {
+  width: 100%;
+  font-family: sans-serif;
+}
+
+.top-bar {
+  background-color: #6b4fbb;
+  color: white;
+  padding: 8px 0;
+  font-size: 13px;
+}
+
+.top-bar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.main-nav {
+  background: white;
+  border-bottom: 1px solid #eee;
+  padding: 15px 0 0 0;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  color: #6b4fbb;
+}
+
+.search-bar {
+  flex: 1;
+  max-width: 600px;
+  margin: 0 40px;
+  display: flex;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+
+.search-btn {
+  background: #6b4fbb;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.menu-categories {
+  max-width: 1400px;
+  margin: 15px auto 0;
+  display: flex;
+  gap: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.active-link {
+  color: #6b4fbb;
+  border-bottom: 2px solid #6b4fbb;
+}
