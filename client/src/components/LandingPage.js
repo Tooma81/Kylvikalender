@@ -1,12 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import './App.css';
-import ActivityCalendar from './components/ActivityCalendar';
-import FilterableCalendar from './components/FilterableCalendar';
-import ProductList from './components/ProductList';
-import LandingPage from './components/LandingPage';
+import { useNavigate } from 'react-router-dom';
+import ActivityCalendar from './ActivityCalendar';
+import ProductList from './ProductList';
+import '../App.css';
 
-function HomePage() {
+function LandingPage() {
   const navigate = useNavigate();
 
   return (
@@ -14,7 +12,6 @@ function HomePage() {
       <header className="app-header">
         <h1>Külvikalender</h1>
       </header>
-
       <div className="content-grid">
         <div 
           className="content-section card-general"
@@ -28,7 +25,6 @@ function HomePage() {
             </button>
           </div>
         </div>
-
         <div 
           className="content-section card-personal"
           style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/Img/Test6.png)` }}
@@ -42,23 +38,13 @@ function HomePage() {
           </div>
         </div>
       </div>
-
       <div className="info-section">
         <h2>Mis on külvikalender?</h2>
-        <div className="info-text-container">
-          <p>
-            <b>Külvikalender on juhend või ajakava</b>, mis aitab planeerida aiatöid
-            kogu kasvuperioodi jooksul. See näitab, millal on kõige sobivam aeg erinevaid
-            taimi külvata, ette kasvatada, istutada, ümber istutada ja saaki koristada. 
-            Külvikalender arvestab taimede kasvuvajadusi ning kohalikke ilmastiku- ja kliimatingimusi, 
-            et taimed saaksid kasvada võimalikult soodsates oludes.
-          </p>
-          
-        </div>
+        <p>Külvikalender on juhend või ajakava, mis aitab planeerida aiatöid kogu kasvuperioodi jooksul. See näitab, millal on kõige sobivam aeg erinevaid taimi külvata, ette kasvatada, istutada, ümber istutada ja saaki koristada. Külvikalender arvestab taimede kasvuvajadusi ning kohalikke ilmastiku- ja kliimatingimusi, et taimed saaksid kasvada võimalikult soodsates oludes.</p>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Kuva rohkem</a>
       </div>
-
-      <div className="content-section product-list-wrapper">
-        <ProductList />
+      <div className="content-section">
+        <ProductList /> {/* Keskmine box */}
       </div>
        
       <div className="content-section">
@@ -68,15 +54,4 @@ function HomePage() {
   );
 }
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/kalender" element={<FilterableCalendar />} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default App;
+export default LandingPage;
