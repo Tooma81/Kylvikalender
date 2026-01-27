@@ -1,9 +1,19 @@
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .app {
   min-height: 100vh;
   padding: 20px;
   max-width: 1400px;
   margin: 0 auto;
   background-color: #ffffff;
+  animation: pageFadeIn 0.4s ease-out forwards;
 }
 
 .app-header {
@@ -117,7 +127,7 @@
 }
 
 .content-section {
-  background: #ffffff;
+  background-color: #ffffff;
   border: none;
 }
 

@@ -19,14 +19,16 @@ function ActivityCalendar() {
     try {
       setLoading(true);
       const [cropsData, monthsData] = await Promise.all([
-      getCrops(),
-      getMonths()
-    ]);
-      setCrops(cropsData);
-      setMonths(monthsData);
+        getCrops(),
+        getMonths()
+      ]);
+      setCrops(Array.isArray(cropsData) ? cropsData : []);
+      setMonths(Array.isArray(monthsData) ? monthsData : []);
       setError(null);
     } catch (err) {
       setError('Andmete laadimisel tekkis viga: ' + err.message);
+      setCrops([]);
+      setMonths([]);
     } finally {
       setLoading(false);
     }
@@ -51,22 +53,24 @@ function ActivityCalendar() {
       <div className='calendar'>
         <div className='month-filter'>
           <h1 style={{fontSize: 28}}>Filtreeri kuu järgi</h1>
-          {months.map((month) => (
+          {(months || []).map((month) => (
             <div
-              key={month.id}
-              className={`month-filter-btn prevent-select ${month.season} ${monthFilter === month.id ? 'selected' : ''}`}
-              onClick={() => handleFilterChange(month.id)}
+              key={month?.id ?? month?.name}
+              className={`month-filter-btn prevent-select ${month?.season || ''} ${monthFilter === month?.id ? 'selected' : ''}`}
+              onClick={() => handleFilterChange(month?.id)}
             >
-              {month.name}
+              {month?.name}
             </div>
           ))}
         </div>
-        {crops
+        {(crops || [])
         .filter((crop) => {
+          const periods = crop?.periods;
+          if (!Array.isArray(periods)) return !!monthFilter === false;
           // Kui väärtus 0, siis filter puudub
           if (!monthFilter || monthFilter === 0) return true;
-          return crop.periods.some((period) => 
-            monthFilter >= period.start && monthFilter <= period.end
+          return periods.some((period) =>
+            period && monthFilter >= period.start && monthFilter <= period.end
           );
         })
         .map((crop) => (

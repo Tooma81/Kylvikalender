@@ -245,10 +245,40 @@ function getCropById(id) {
   return crops.find(crop => crop.id === id);
 }
 
+// Get user activities for selected crops (location and days used for filtering/range)
+function getUserActivities(userCrops, location, days) {
+  const activities = [];
+  const now = new Date();
+  const startMonth = now.getMonth() + 1; // 1–12
 
+  userCrops.forEach((uc) => {
+    const crop = getCropById(uc.cropId);
+    if (!crop) return;
+
+    (crop.periods || []).forEach((p) => {
+      const periodType = PERIOD_TYPES[p.id];
+      if (!periodType || (p.start === 0 && p.end === 0)) return;
+
+      for (let month = p.start; month <= p.end; month++) {
+        activities.push({
+          cropId: crop.id,
+          cropName: crop.name,
+          periodId: p.id,
+          periodName: periodType.name,
+          symbol: periodType.symbol,
+          month,
+          location: uc.location || location
+        });
+      }
+    });
+  });
+
+  return activities.sort((a, b) => a.month - b.month);
+}
 
 module.exports = {
   getCrops,
   getCropById,
   getMonths,
+  getUserActivities,
 };
