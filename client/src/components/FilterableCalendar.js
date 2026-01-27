@@ -101,31 +101,28 @@ function FilterableCalendar() {
     setVisibleMonths(new Set());
   };
 
-  // PDF allalaadimine
+  // PDF allalaadimine – kõik ühele A4-landscape lehele
   const downloadPDF = async () => {
     const calendarElement = document.querySelector('.calendar-container');
-    
-    if (!calendarElement) {
+    const pageElement = document.querySelector('.filterable-calendar-page');
+
+    if (!calendarElement || !pageElement) {
       alert('Kalendrit ei leitud!');
       return;
     }
 
     try {
-      // Peida külgriba ja päis PDF jaoks
       const sidebarElement = document.querySelector('.calendar-sidebar');
       const headerElement = document.querySelector('.calendar-header');
       const sidebarOriginalDisplay = sidebarElement?.style.display;
       const headerOriginalDisplay = headerElement?.style.display;
-      
-      if (sidebarElement) {
-        sidebarElement.style.display = 'none';
-      }
-      if (headerElement) {
-        headerElement.style.display = 'none';
-      }
 
-      // Oota väike aeg, et stiilid rakenduksid
-      await new Promise(resolve => setTimeout(resolve, 100));
+      if (sidebarElement) sidebarElement.style.display = 'none';
+      if (headerElement) headerElement.style.display = 'none';
+
+      // Kompaktne PDF-stiil ühele lehele
+      pageElement.classList.add('pdf-export');
+      await new Promise(resolve => setTimeout(resolve, 150));
 
       const canvas = await html2canvas(calendarElement, {
         scale: 2,
@@ -134,48 +131,33 @@ function FilterableCalendar() {
         backgroundColor: '#ffffff'
       });
 
-      // Taasta külgriba ja päis
-      if (sidebarElement) {
-        sidebarElement.style.display = sidebarOriginalDisplay || '';
-      }
-      if (headerElement) {
-        headerElement.style.display = headerOriginalDisplay || '';
-      }
+      pageElement.classList.remove('pdf-export');
+      if (sidebarElement) sidebarElement.style.display = sidebarOriginalDisplay || '';
+      if (headerElement) headerElement.style.display = headerOriginalDisplay || '';
 
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('landscape', 'mm', 'a4');
-      
-      const imgWidth = 297; // A4 landscape width in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      
-      // Kui pilt on liiga kõrge, jagame selle lehtedeks
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= 210; // A4 height in mm
-
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= 210;
+      const pageW = 297;
+      const pageH = 210;
+      const aspect = canvas.width / canvas.height;
+      let w = pageW;
+      let h = pageW / aspect;
+      if (h > pageH) {
+        h = pageH;
+        w = pageH * aspect;
       }
-
+      const x = (pageW - w) / 2;
+      const y = (pageH - h) / 2;
+      pdf.addImage(imgData, 'PNG', x, y, w, h);
       pdf.save('kylvikalender.pdf');
     } catch (err) {
       console.error('PDF genereerimise viga:', err);
       alert('PDF genereerimisel tekkis viga: ' + err.message);
-      
-      // Taasta külgriba ja päis vea korral
+      pageElement?.classList.remove('pdf-export');
       const sidebarElement = document.querySelector('.calendar-sidebar');
       const headerElement = document.querySelector('.calendar-header');
-      if (sidebarElement) {
-        sidebarElement.style.display = '';
-      }
-      if (headerElement) {
-        headerElement.style.display = '';
-      }
+      if (sidebarElement) sidebarElement.style.display = '';
+      if (headerElement) headerElement.style.display = '';
     }
   };
 

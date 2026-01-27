@@ -442,9 +442,9 @@
 
 .period-marker-icon {
   width: auto;
-  height: calc(var(--box-height) / 2 - 8px);
-  max-height: 36px;
-  max-width: 28px;
+  height: auto;
+  max-height: 148px;
+  max-width: 150px;
   object-fit: contain;
 }
 
@@ -464,48 +464,59 @@
 }
 
 /* Kompaktne vaade PDF ekspordiks – mahutab kalendri ühele A4-le */
+
 .filterable-calendar-page.pdf-export .calendar-container {
-  padding: 12px 16px;
+  padding: 6px 10px;
+  max-width: 100%;
 }
 .filterable-calendar-page.pdf-export .calendar {
-  --box-height: 50px;
-  --box-width: 38px;
+  --box-height: 32px;
+  --box-width: 28px;
 }
 .filterable-calendar-page.pdf-export .calendar-legend {
-  padding: 6px 0 10px;
-  margin-bottom: 10px;
+  padding: 4px 0 6px;
+  margin-bottom: 6px;
+  gap: 12px;
 }
 .filterable-calendar-page.pdf-export .legend-icon {
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
 }
 .filterable-calendar-page.pdf-export .legend-label {
-  font-size: 0.8rem;
+  font-size: 0.65rem;
 }
 .filterable-calendar-page.pdf-export .month-header {
-  min-width: var(--box-width);
-  height: 36px;
-  font-size: 0.75rem;
+  min-width: 24px;
+  height: 26px;
+  font-size: 0.6rem;
 }
 .filterable-calendar-page.pdf-export .crop-column-header {
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
-  min-height: 36px;
-  font-size: 0.8rem;
+  width: 72px;
+  min-width: 72px;
+  max-width: 72px;
+  min-height: 26px;
+  font-size: 0.65rem;
+  padding: 4px 6px;
 }
 .filterable-calendar-page.pdf-export .plant-name {
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
+  width: 72px;
+  min-width: 72px;
+  max-width: 72px;
   min-height: var(--box-height);
-  font-size: 0.75rem;
+  font-size: 0.6rem;
+  padding: 4px 6px;
   color: #333;
 }
+.filterable-calendar-page.pdf-export .month-cell {
+  min-width: 24px;
+}
 .filterable-calendar-page.pdf-export .period-marker-icon {
-  max-height: 22px;
-  max-width: 18px;
+  max-height: 18px;
+  max-width: 16px;
+}
+.filterable-calendar-page.pdf-export .calendar-row {
+  min-height: var(--box-height);
 }
 
 /* Responsive design */
