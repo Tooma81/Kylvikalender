@@ -10,6 +10,7 @@ function ActivityCalendar() {
   const [months, setMonths] = useState([]);
   const [monthFilter, setMonthFilter] = useState(0);
   const [calendarSearchValue, setCalendarSearchValue] = useState('');
+  const [calendarSearch, setCalendarSearch] = useState('');
   const [calendarSort, setCalendarSort] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -46,6 +47,7 @@ function ActivityCalendar() {
   const handleCalendarSearchChange = (event) => {
     const calendarSearchValue = event.target.value;
     setCalendarSearchValue(calendarSearchValue);
+    console.log(calendarSearchValue)
   }
   const handleCalendarSortChange = (selected) => {
     if (!selected) {
@@ -79,7 +81,10 @@ function ActivityCalendar() {
               onChange={handleCalendarSearchChange}
               placeholder='Otsi taimi'
             />
-            <div className='calendar-search-button'>
+            <div 
+              className='calendar-search-button' 
+              onClick={() => setCalendarSearch(calendarSearchValue)}
+            >
               <BaselineSearch />
               Otsi
             </div>
@@ -116,16 +121,21 @@ function ActivityCalendar() {
           ))}
         </div>
         {crops
-        .filter((crop) => {
-          // Kui väärtus 0, siis filter puudub
-          if (!monthFilter || monthFilter === 0) return true;
-          return crop.periods.some((period) => 
-            monthFilter >= period.start && monthFilter <= period.end
-          );
-        })
-        .map((crop) => (
-          <CalendarRow key={crop.id} crop={crop} months={months} />
-        ))}
+          // Kuu filter
+          .filter((crop) => {
+            // Kui väärtus 0, siis filter puudub
+            if (!monthFilter || monthFilter === 0) return true;
+            return crop.periods.some((period) => 
+              monthFilter >= period.start && monthFilter <= period.end
+            );
+          })
+          // Otsingu filter
+          .filter((crop) => {
+            return crop.name.toLowerCase().includes(calendarSearch.toLowerCase());
+          })
+          .map((crop) => (
+            <CalendarRow key={crop.id} crop={crop} months={months} />
+          ))}
       </div>
     </div>
   );
