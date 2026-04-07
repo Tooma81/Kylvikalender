@@ -54,14 +54,14 @@ function ActivityCalendar() {
       setCalendarSort(null);
     } else {
       setCalendarSort(selected);
-      console.log("Selected for sorting:", selected.value);
+      console.log("Selected for sorting:", selected);
     }
   };
 
   const sortOptions = [
-    { value: 'ettekasvatamine', label: 'Vajab ettekasvatamist' },
-    { value: 'kasvuhoones', label: 'Kasvuhoones kasvatamiseks' },
-    { value: 'avamaal', label: 'Sobib avamaale' },
+    { value: 'ettekasvatus', label: 'Vajab ettekasvatamist' },
+    { value: 'kasvuhoonesse', label: 'Kasvuhoones kasvatamiseks' },
+    { value: 'otsekulv', label: 'Sobib avamaale' },
     { value: 'kylviaeg', label: 'Varaseim külviaeg' },
   ];
 
@@ -132,6 +132,14 @@ function ActivityCalendar() {
           // Otsingu filter
           .filter((crop) => {
             return crop.name.toLowerCase().includes(calendarSearch.toLowerCase());
+          })
+          // Sorteeri filter
+          .filter((crop) => {
+            if (!calendarSort) return true;
+            return crop.periods.some((period) => 
+              // Kontrollib, kas antud perioodil on alguse aeg
+              period.id === calendarSort.value
+            );
           })
           .map((crop) => (
             <CalendarRow key={crop.id} crop={crop} months={months} />
