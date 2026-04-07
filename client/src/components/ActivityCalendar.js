@@ -51,7 +51,7 @@ function ActivityCalendar() {
   }
   const handleCalendarSortChange = (selected) => {
     if (!selected) {
-      setCalendarSort(null);
+      setCalendarSort('');
     } else {
       setCalendarSort(selected);
       console.log("Selected for sorting:", selected);
@@ -135,11 +135,15 @@ function ActivityCalendar() {
           })
           // Sorteeri filter
           .filter((crop) => {
-            if (!calendarSort) return true;
+            if (!calendarSort || calendarSort.value === 'kylviaeg') return true;
             return crop.periods.some((period) => 
               // Kontrollib, kas antud perioodil on alguse aeg
               period.id === calendarSort.value
             );
+          })
+          .sort((a, b) => {
+            if (calendarSort.value === 'kylviaeg')
+            return Math.min(...a.periods.map(p => p.start)) - Math.min(...b.periods.map(p => p.start))
           })
           .map((crop) => (
             <CalendarRow key={crop.id} crop={crop} months={months} />

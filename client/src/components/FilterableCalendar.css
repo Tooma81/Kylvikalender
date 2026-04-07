@@ -392,7 +392,11 @@
   padding: 0 5px;
   background-color: #C0D5C1;
   border-radius: 14px;
-  z-index: 999;
+  z-index: 9;
+}
+
+.calendar-sort-menu {
+  z-index: 10;
 }
 
 /* Markerite värvid ja positsoonid */
