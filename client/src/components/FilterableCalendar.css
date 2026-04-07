@@ -216,6 +216,7 @@
   opacity: 0.8;
 }
 
+/* Activity calendar */
 .activity-calendar {
   background: #fff;
   --box-height: 100px;
@@ -223,6 +224,46 @@
   padding: 20px;
 }
 
+/* Activity calendar header */
+
+.header-title {
+  font-size: 24px;
+}
+
+.calendar-header-frontpage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.calendar-search {
+  display: flex;
+  flex-direction: row;
+  height: 42px;
+  width: 40%
+}
+
+.calendar-search-input {
+  height: 100%;
+  width: 80%;
+  padding: 10px;
+  border: #64328A solid 1px;
+  border-radius: 8px 0 0 8px;
+}
+
+.calendar-search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  background: #64328A;
+  height: 100%;
+  width: 20%;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Activity calendar rows */
 .calendar-title {
   color: #000 !important;
   font-size: 3rem;
@@ -351,7 +392,11 @@
   padding: 0 5px;
   background-color: #C0D5C1;
   border-radius: 14px;
-  z-index: 999;
+  z-index: 9;
+}
+
+.calendar-sort-menu {
+  z-index: 10;
 }
 
 /* Markerite värvid ja positsoonid */

@@ -1,5 +1,4 @@
-import React from 'react';
-import './FilterableCalendar.css';
+import React, { useEffect } from 'react';
 import seeds from '../assets/seeds.png';
 
 const CalendarRow = ({ crop, months }) => {
